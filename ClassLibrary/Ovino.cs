@@ -10,7 +10,7 @@ namespace ClassLibrary
         private decimal _precioPorKiloOvinoEnPie;
 
         // Constructor
-        public Ovino(Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, double pesoLanaEstimado, decimal precioPorKiloLana, decimal precioPorKiloEnPie) : base(sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido) 
+        public Ovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, double pesoLanaEstimado, decimal precioPorKiloLana, decimal precioPorKiloEnPie) : base(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido) 
         {
             _pesoLanaEstimado = pesoLanaEstimado;
             _precioPorKiloLana = precioPorKiloLana;

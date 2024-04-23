@@ -9,7 +9,7 @@ namespace ClassLibrary
         private decimal _precioPorKiloBovinoEnPie;
 
         // Constructor
-        public Bovino(Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, TipoAlimentacion tipoAlimentacion, decimal precioPorKiloBovinoEnPie) : base(sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido)
+        public Bovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, TipoAlimentacion tipoAlimentacion, decimal precioPorKiloBovinoEnPie) : base(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido)
         {
             _tipoAlimentacion = tipoAlimentacion;
             _precioPorKiloBovinoEnPie = precioPorKiloBovinoEnPie;
@@ -29,8 +29,8 @@ namespace ClassLibrary
         public override string ToString()
         {
             string mensaje = base.ToString();
-            mensaje += $"Tipo de Alimentación: ${_tipoAlimentacion}, ";
-            mensaje += $"Precio por Kilo de Bovino en Pie: ${_precioPorKiloBovinoEnPie}";
+            mensaje += $"Tipo de Alimentación: {_tipoAlimentacion} ➟ ";
+            mensaje += $"Precio por Kilo de Bovino en Pie: {_precioPorKiloBovinoEnPie}";
 
             return mensaje;
         }

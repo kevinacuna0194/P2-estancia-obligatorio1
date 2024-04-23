@@ -46,7 +46,19 @@ namespace ClassLibrary
             mensaje += $"Descripción: ${_descripcion}, ";
             mensaje += $"Hectareas: ${_hectareas}";
             mensaje += $"Capacidad Máxima: ${_capacidadMaxima}";
-            mensaje += $"Animales: ${_animales}";
+            
+            if (_animales.Count > 0)
+            {
+                foreach(Animal animal in _animales)
+                {
+                    //mensaje += $"\n {animal.CodigoCaravana}, {animal.Sexo}, {animal.Raza}, {animal.FechaNacimiento}, {animal.CostoAdquisicion}, {animal.CostoAlimentacion}, {animal.pesoActual}, {animal.EsHibrido}";
+                    mensaje += animal.ToString();
+                }
+            }
+            else
+            {
+                mensaje += $"No hay registros de Animales en el Potrero";
+            }
 
             return mensaje;
         }

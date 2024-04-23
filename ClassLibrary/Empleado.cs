@@ -30,10 +30,10 @@ namespace ClassLibrary
         public override string ToString()
         {
             string mensaje = string.Empty;
-            mensaje = $"Email: ${_email}, ";
-            mensaje += $"Password: ${_password}, ";
-            mensaje += $"Nombre: ${_nombre}, ";
-            mensaje += $"Fecha de Ingreso: ${_fechaIngreso}, ";
+            mensaje = $"Email: {_email} ➟ ";
+            mensaje += $"Password: {_password} ➟ ";
+            mensaje += $"Nombre: {_nombre} ➟ ";
+            mensaje += $"Fecha de Ingreso: {_fechaIngreso} ➟ ";
 
             return mensaje;
         }

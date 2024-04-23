@@ -21,6 +21,18 @@ namespace ClassLibrary
             set { _tipoVacuna = value;}
         }
 
+        public DateTime Fecha
+        {
+            get { return _fecha; }
+            set { _fecha = value; }
+        }
+
+        public DateTime Vencimiento
+        {
+            get { return _vencimiento; }
+            set { _vencimiento = value; }
+        }
+
         public bool Validar()
         {
             if (_tipoVacuna is not null) return true;
