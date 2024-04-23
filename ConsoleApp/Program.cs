@@ -11,7 +11,7 @@ namespace ConsoleApp
         {
             sistema = Sistema.Instancia;
 
-            string input = string.Empty;
+            string input;
             bool codigo = true;
 
             while (codigo)
@@ -27,6 +27,7 @@ namespace ConsoleApp
                 {
                     case "1":
                         sistema.ListarBovinos();
+                        sistema.ListarOvinos();
                         break;
                     case "2":
                         Console.WriteLine("2");

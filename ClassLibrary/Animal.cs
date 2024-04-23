@@ -18,7 +18,7 @@ namespace ClassLibrary
         protected List<Vacunacion> _vacunaciones = new List<Vacunacion>();
         internal Potrero _potreroAsignado { get; set; } // Potrero al que está asignado el animal
 
-        // Constructor
+        // Constructor Clase Base
         protected Animal(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido)
         {
             _codigoCaravana = codigoCaravana;
@@ -31,19 +31,19 @@ namespace ClassLibrary
             _esHibrido = esHibrido;
         }
 
-        /** Propiedades de lectura y escrituta **/
+        /** Get; Set; **/
 
         /** Vacunar un Aniamal **/
-        /* public void Vacunar(Vacuna vacuna, DateTime fecha)
+        public void Vacunar(Vacuna vacuna, DateTime fecha, DateTime vencimiento)
         {
-            if ((DateTime.Now - _fechaNacimiento).TotalDays < 90)
-            {
-                throw new InvalidOperationException("El animal no puede ser vacunado antes de los 3 meses de edad.");
-            }
+            // Crear una nueva instancia de Vacunacion
+            Vacunacion nuevaVacunacion = new Vacunacion(vacuna, fecha, vencimiento);
 
-            _vacunaciones.Add();
-        } */
+            // Agregar la nueva vacunación a la lista de vacunaciones del animal
+            _vacunaciones.Add(nuevaVacunacion);
+        }
 
+        /** Métodos Globales **/
         public virtual bool Validar()
         {
             if (!String.IsNullOrEmpty(_codigoCaravana) && _codigoCaravana.Length == 8 && !String.IsNullOrEmpty(_raza) && _fechaNacimiento < DateTime.Today && _costoAdquisicion > 0 && _costoAlimentacion > 0 && _pesoActual > 0) return true;
@@ -52,7 +52,7 @@ namespace ClassLibrary
 
         public override string ToString()
         {
-            string mensaje = String.Empty;
+            string mensaje;
             mensaje = $"Código Caravana: {_codigoCaravana} ➟ ";
             mensaje += $"Sexo: {_sexo} ➟ ";
             mensaje += $"Raza: {_raza} ➟ ";
@@ -60,18 +60,18 @@ namespace ClassLibrary
             mensaje += $"Costo de Adquisición: {_costoAdquisicion} ➟ ";
             mensaje += $"Costo de Alimentación: {_costoAlimentacion} ➟ ";
             mensaje += $"Peso Actual: {_pesoActual} ➟ ";
-            mensaje += $"¿Es Híbrido?: {_esHibrido} ➟ ";
+            mensaje += $"¿Es Híbrido?: {_esHibrido} \n";
 
             if (_vacunaciones.Count > 0)
             {
                 foreach (Vacunacion vacunacion in _vacunaciones)
                 {
-                    mensaje += $"\n -> {vacunacion.TipoVacuna} ➟ {vacunacion.Fecha} ➟ {vacunacion.Vencimiento}";
+                    mensaje += $"\n ➽ {vacunacion.ToString()} \n";
                 }
             }
             else
             {
-                mensaje += $"\n -> No Hay Registros de Vacunacion ➟ ";
+                mensaje += $"\n ➽ No Hay Registros de Vacunación \n";
             }
 
             return mensaje;

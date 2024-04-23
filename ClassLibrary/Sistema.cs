@@ -26,17 +26,77 @@ namespace ClassLibrary
             PrecargarCapataz();
             PrecargarTarea();
             PrecargarBovino();
+            PrecargarOvino();
+            PrecargarVacuna();
+            PrecargarPotrero();
+            VacunarBovino();
+            VacunarOvino();
         }
 
+        #region Get; Set;
         /** Get; Set; **/
         public static Sistema Instancia
         {
             get { if (_instancia == null) _instancia = new Sistema(); return _instancia; }
         }
+        #endregion Get; Set;
 
+        #region Métodos para Buscar Información
         /** Métodos para Buscar Información **/
+        public Vacuna ObtenerVacunaPorNombre(string nombre)
+        {
+            if (nombre is null) throw new ArgumentNullException("String Vacío. ObtenerVacunaPorNombre(string nombre)");
+            Vacuna vacuna = null;
+
+            int index = 0;
+            while (index < _vacunas.Count && vacuna is null)
+            {
+                if (_vacunas[index].Nombre == nombre) vacuna = _vacunas[index];
+
+                index++;
+            }
+
+            return vacuna;
+        }
+
+        public Ovino ObtenerOvinoPorCodigoCaravana(string coigoCaravana)
+        {
+            if (string.IsNullOrEmpty(coigoCaravana)) throw new ArgumentNullException("String Vacío. ObtenerOvinoPorCodigoCaravana(string coigoCaravana)");
+
+            Ovino ovino = null;
+
+            int index = 0;
+            while (index < _ovinos.Count && ovino == null)
+            {
+                if (_ovinos[index].CodigoCaravana == coigoCaravana) ovino = _ovinos[index];
+
+                index++;
+            }
+
+            return ovino;
+        }
+
+        public Bovino ObtenerBovinoPorCodigoCaravana(string coigoCaravana)
+        {
+            if (string.IsNullOrEmpty(coigoCaravana)) throw new ArgumentNullException("String Vacío. ObtenerAnimalPorCodigoCaravana(string coigoCaravana)");
+
+            Bovino bovino = null;
+
+            int index = 0;
+            while (index < _bovinos.Count && bovino == null)
+            {
+                if (_bovinos[index].CodigoCaravana == coigoCaravana) bovino = _bovinos[index];
+
+                index++;
+            }
+
+            return bovino;
+        }
+
         public Tarea ObtenerTareaPorId(int id)
         {
+            if (id <= 0) throw new ArgumentException("ID 0. ObtenerTareaPorId(int id)");
+
             Tarea tarea = null;
 
             int index = 0;
@@ -49,8 +109,58 @@ namespace ClassLibrary
 
             return tarea;
         }
+        #endregion Métodos para Buscar Información
 
+        #region Métodos para Listar Información
         /** Métodos para Listar Información **/
+        public void ListarPotreros()
+        {
+            try
+            {
+                Resaltar("▀▄▀▄▀▄ LISTADO DE POTREROS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                foreach (Potrero potrero in _potreros)
+                {
+                    Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ {potrero.ToString()} ◢◤◢◤◢◤◢◤◢◤◢ \n");
+                }
+            }
+            catch (Exception ex) { Sistema.Error(ex.Message); }
+
+            Console.ReadKey();
+        }
+
+        public void ListarVacunas()
+        {
+            try
+            {
+                Resaltar("▀▄▀▄▀▄ LISTADO DE VACUNAS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                foreach (Vacuna vacuna in _vacunas)
+                {
+                    Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ {vacuna.ToString()} ◢◤◢◤◢◤◢◤◢◤◢ \n");
+                }
+            }
+            catch (Exception ex) { Sistema.Error(ex.Message); }
+
+            Console.ReadKey();
+        }
+
+        public void ListarOvinos()
+        {
+            try
+            {
+                Resaltar("▀▄▀▄▀▄ LISTADO DE OVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                foreach (Ovino ovino in _ovinos)
+                {
+                    Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ {ovino.ToString()} ◢◤◢◤◢◤◢◤◢◤◢ \n");
+                }
+            }
+            catch (Exception ex) { Sistema.Error(ex.Message); }
+
+            Console.ReadKey();
+        }
+
         public void ListarBovinos()
         {
             try
@@ -122,13 +232,181 @@ namespace ClassLibrary
 
             Console.ReadKey();
         }
+        #endregion Métodos para Listar Información
 
+        #region Métodos para Agregan o Modificar Información 
         /** Métodos para Agregan o Modificar Información **/
+        public void VacunarOvino()
+        {
+            Ovino ovino1 = ObtenerOvinoPorCodigoCaravana("Caravana1");
+            Ovino ovino2 = ObtenerOvinoPorCodigoCaravana("Caravana5");
+            Ovino ovino3 = ObtenerOvinoPorCodigoCaravana("Caravana10");
+            Ovino ovino4 = ObtenerOvinoPorCodigoCaravana("Caravana15");
+            Ovino ovino5 = ObtenerOvinoPorCodigoCaravana("Caravana20");
+
+            if (ovino1 is null || ovino2 is null || ovino3 is null || ovino4 is null || ovino5 is null) throw new ArgumentNullException("Object Null Sistema\\AltaVacunacion()");
+
+            Vacuna vacuna1 = ObtenerVacunaPorNombre("Vacuna Antitetánica");
+            Vacuna vacuna2 = ObtenerVacunaPorNombre("Vacuna Anticlostridial");
+            Vacuna vacuna3 = ObtenerVacunaPorNombre("Vacuna Anticarbuncloso");
+            Vacuna vacuna4 = ObtenerVacunaPorNombre("Vacuna Antileptospira");
+            Vacuna vacuna5 = ObtenerVacunaPorNombre("Vacuna Antibrucelosis");
+            Vacuna vacuna6 = ObtenerVacunaPorNombre("Vacuna Antipasteurelosis");
+            Vacuna vacuna7 = ObtenerVacunaPorNombre("Vacuna Antirabia");
+            Vacuna vacuna8 = ObtenerVacunaPorNombre("Vacuna Antiviral");
+            Vacuna vacuna9 = ObtenerVacunaPorNombre("Vacuna Antiparasitaria");
+            Vacuna vacuna10 = ObtenerVacunaPorNombre("Vacuna Anticoccidial");
+
+            if (vacuna1 is null || vacuna2 is null || vacuna3 is null || vacuna4 is null || vacuna5 is null || vacuna6 is null || vacuna7 is null || vacuna8 is null || vacuna9 is null || vacuna10 is null) throw new ArgumentNullException("Object Null Sistema\\AltaVacunacion()");
+
+            ovino1.Vacunar(vacuna1, DateTime.Now, DateTime.Now.AddMonths(6));
+            ovino1.Vacunar(vacuna2, DateTime.Now, DateTime.Now.AddMonths(6));
+            ovino1.Vacunar(vacuna3, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            ovino2.Vacunar(vacuna3, DateTime.Now, DateTime.Now.AddMonths(6));
+            ovino2.Vacunar(vacuna4, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            ovino3.Vacunar(vacuna5, DateTime.Now, DateTime.Now.AddMonths(6));
+            ovino3.Vacunar(vacuna6, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            ovino4.Vacunar(vacuna7, DateTime.Now, DateTime.Now.AddMonths(6));
+            ovino4.Vacunar(vacuna8, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            ovino5.Vacunar(vacuna9, DateTime.Now, DateTime.Now.AddMonths(6));
+            ovino5.Vacunar(vacuna10, DateTime.Now, DateTime.Now.AddMonths(6));
+        }
+
+        public void VacunarBovino()
+        {
+            Bovino bovino1 = ObtenerBovinoPorCodigoCaravana("Caravana1");
+            Bovino bovino2 = ObtenerBovinoPorCodigoCaravana("Caravana5");
+            Bovino bovino3 = ObtenerBovinoPorCodigoCaravana("Caravana10");
+            Bovino bovino4 = ObtenerBovinoPorCodigoCaravana("Caravana15");
+            Bovino bovino5 = ObtenerBovinoPorCodigoCaravana("Caravana20");
+
+            if (bovino1 is null || bovino2 is null || bovino3 is null || bovino4 is null || bovino5 is null) throw new ArgumentNullException("Object Null Sistema\\AltaVacunacion()");
+
+            Vacuna vacuna1 = ObtenerVacunaPorNombre("Vacuna Antitetánica");
+            Vacuna vacuna2 = ObtenerVacunaPorNombre("Vacuna Anticlostridial");
+            Vacuna vacuna3 = ObtenerVacunaPorNombre("Vacuna Anticarbuncloso");
+            Vacuna vacuna4 = ObtenerVacunaPorNombre("Vacuna Antileptospira");
+            Vacuna vacuna5 = ObtenerVacunaPorNombre("Vacuna Antibrucelosis");
+            Vacuna vacuna6 = ObtenerVacunaPorNombre("Vacuna Antipasteurelosis");
+            Vacuna vacuna7 = ObtenerVacunaPorNombre("Vacuna Antirabia");
+            Vacuna vacuna8 = ObtenerVacunaPorNombre("Vacuna Antiviral");
+            Vacuna vacuna9 = ObtenerVacunaPorNombre("Vacuna Antiparasitaria");
+            Vacuna vacuna10 = ObtenerVacunaPorNombre("Vacuna Anticoccidial");
+
+            if (vacuna1 is null || vacuna2 is null || vacuna3 is null || vacuna4 is null || vacuna5 is null || vacuna6 is null || vacuna7 is null || vacuna8 is null || vacuna9 is null || vacuna10 is null) throw new ArgumentNullException("Object Null Sistema\\AltaVacunacion()");
+
+            bovino1.Vacunar(vacuna1, DateTime.Now, DateTime.Now.AddMonths(6));
+            bovino1.Vacunar(vacuna2, DateTime.Now, DateTime.Now.AddMonths(6));
+            bovino1.Vacunar(vacuna3, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            bovino2.Vacunar(vacuna3, DateTime.Now, DateTime.Now.AddMonths(6));
+            bovino2.Vacunar(vacuna4, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            bovino3.Vacunar(vacuna5, DateTime.Now, DateTime.Now.AddMonths(6));
+            bovino3.Vacunar(vacuna6, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            bovino4.Vacunar(vacuna7, DateTime.Now, DateTime.Now.AddMonths(6));
+            bovino4.Vacunar(vacuna8, DateTime.Now, DateTime.Now.AddMonths(6));
+
+            bovino5.Vacunar(vacuna9, DateTime.Now, DateTime.Now.AddMonths(6));
+            bovino5.Vacunar(vacuna10, DateTime.Now, DateTime.Now.AddMonths(6));
+        }
+
+        public void AltaPotrero(Potrero potrero)
+        {
+            if (potrero is null) throw new ArgumentNullException("Object Null Sistema\\AltaPotrero(Potrero potrero) \n");
+            potrero.Validar();
+            if (_potreros.Contains(potrero)) throw new ArgumentException("Potrero ya Existe en Sistema\\List<Potrero> _potreros \n");
+            _potreros.Add(potrero);
+        }
+
+        public void PrecargarPotrero()
+        {
+            AltaPotrero(new Potrero("Potrero 1", 20, 50));
+            AltaPotrero(new Potrero("Potrero 2", 15, 40));
+            AltaPotrero(new Potrero("Potrero 3", 25, 60));
+            AltaPotrero(new Potrero("Potrero 4", 18, 45));
+            AltaPotrero(new Potrero("Potrero 5", 22, 55));
+            AltaPotrero(new Potrero("Potrero 6", 17, 42));
+            AltaPotrero(new Potrero("Potrero 7", 21, 58));
+            AltaPotrero(new Potrero("Potrero 8", 19, 48));
+            AltaPotrero(new Potrero("Potrero 9", 23, 63));
+            AltaPotrero(new Potrero("Potrero 10", 16, 38));
+        }
+
+        public void AltaVacuna(Vacuna vacuna)
+        {
+            if (vacuna is null) throw new ArgumentNullException("Object Null Sistema\\AltaVacuna(Vacuna vacuna) \n");
+            vacuna.Validar();
+            if (_vacunas.Contains(vacuna)) throw new ArgumentException("Vacuna ya Existe en Sistema\\List<Vacuna> _vacunas \n");
+            _vacunas.Add(vacuna);
+        }
+
+        public void PrecargarVacuna()
+        {
+            AltaVacuna(new Vacuna("Vacuna Antitetánica", "Protege contra el tétanos", "Clostridium tetani"));
+            AltaVacuna(new Vacuna("Vacuna Anticlostridial", "Protege contra las infecciones por clostridios", "Clostridium perfringens"));
+            AltaVacuna(new Vacuna("Vacuna Anticarbuncloso", "Protege contra el ántrax", "Bacillus anthracis"));
+            AltaVacuna(new Vacuna("Vacuna Antileptospira", "Protege contra la leptospirosis", "Leptospira spp."));
+            AltaVacuna(new Vacuna("Vacuna Antibrucelosis", "Protege contra la brucelosis", "Brucella abortus"));
+            AltaVacuna(new Vacuna("Vacuna Antipasteurelosis", "Protege contra la pasteurelosis", "Pasteurella multocida"));
+            AltaVacuna(new Vacuna("Vacuna Antirabia", "Protege contra la rabia", "Virus de la rabia"));
+            AltaVacuna(new Vacuna("Vacuna Antiviral", "Protege contra enfermedades virales", "Diferentes virus"));
+            AltaVacuna(new Vacuna("Vacuna Antiparasitaria", "Protege contra parásitos internos y externos", "Diferentes parásitos"));
+            AltaVacuna(new Vacuna("Vacuna Anticoccidial", "Protege contra la coccidiosis", "Diferentes especies de coccidios"));
+        }
+
+        public void AltaOvino(Ovino ovino)
+        {
+            if (ovino is null) throw new ArgumentNullException("Object Null Sistema\\AltaOvino(Ovino ovino) \n");
+            ovino.Validar();
+            if (_ovinos.Contains(ovino)) throw new ArgumentException("Ovino ya Existe en Sistema\\List<Ovino> _vacunas \n");
+            _ovinos.Add(ovino);
+        }
+
+        public void PrecargarOvino()
+        {
+            AltaOvino(new Ovino("Caravana1", Sexo.Macho, "Raza1", new DateTime(2019, 01, 15), 1500, 200, 30.5, false, 5.2, 15, 20));
+            AltaOvino(new Ovino("Caravana2", Sexo.Hembra, "Raza2", new DateTime(2020, 03, 22), 1600, 220, 35.2, true, 6.8, 18, 22));
+            AltaOvino(new Ovino("Caravana3", Sexo.Macho, "Raza3", new DateTime(2021, 05, 10), 1700, 240, 32.7, false, 5.9, 16, 21));
+            AltaOvino(new Ovino("Caravana4", Sexo.Hembra, "Raza4", new DateTime(2022, 07, 03), 1800, 260, 38.1, true, 7.5, 20, 25));
+            AltaOvino(new Ovino("Caravana5", Sexo.Macho, "Raza5", new DateTime(2023, 09, 18), 1900, 280, 36.8, false, 6.3, 17, 23));
+            AltaOvino(new Ovino("Caravana6", Sexo.Hembra, "Raza6", new DateTime(2024, 11, 25), 2000, 300, 42.4, true, 8.1, 22, 27));
+            AltaOvino(new Ovino("Caravana7", Sexo.Macho, "Raza7", new DateTime(2025, 12, 10), 2100, 320, 39.6, false, 7.2, 19, 24));
+            AltaOvino(new Ovino("Caravana8", Sexo.Hembra, "Raza8", new DateTime(2026, 10, 06), 2200, 340, 45.3, true, 9.3, 25, 30));
+            AltaOvino(new Ovino("Caravana9", Sexo.Macho, "Raza9", new DateTime(2027, 08, 30), 2300, 360, 43.9, false, 8.5, 23, 28));
+            AltaOvino(new Ovino("Caravana10", Sexo.Hembra, "Raza10", new DateTime(2028, 07, 20), 2400, 380, 49.7, true, 10.2, 27, 33));
+            AltaOvino(new Ovino("Caravana11", Sexo.Macho, "Raza11", new DateTime(2018, 02, 14), 1500, 200, 34.2, false, 6.1, 17, 22));
+            AltaOvino(new Ovino("Caravana12", Sexo.Hembra, "Raza12", new DateTime(2017, 04, 03), 1600, 220, 40.5, true, 7.9, 21, 26));
+            AltaOvino(new Ovino("Caravana13", Sexo.Macho, "Raza13", new DateTime(2016, 06, 27), 1700, 240, 37.8, false, 7.0, 18, 23));
+            AltaOvino(new Ovino("Caravana14", Sexo.Hembra, "Raza14", new DateTime(2015, 08, 12), 1800, 260, 44.6, true, 8.8, 24, 29));
+            AltaOvino(new Ovino("Caravana15", Sexo.Macho, "Raza15", new DateTime(2014, 10, 05), 1900, 280, 41.3, false, 7.7, 20, 25));
+            AltaOvino(new Ovino("Caravana16", Sexo.Hembra, "Raza16", new DateTime(2013, 12, 20), 2000, 300, 47.9, true, 9.6, 26, 31));
+            AltaOvino(new Ovino("Caravana17", Sexo.Macho, "Raza17", new DateTime(2012, 07, 18), 2100, 320, 45.2, false, 8.4, 22, 27));
+            AltaOvino(new Ovino("Caravana18", Sexo.Hembra, "Raza18", new DateTime(2011, 05, 30), 2200, 340, 51.8, true, 10.7, 28, 34));
+            AltaOvino(new Ovino("Caravana19", Sexo.Macho, "Raza19", new DateTime(2010, 03, 25), 2300, 360, 49.1, false, 9.2, 24, 29));
+            AltaOvino(new Ovino("Caravana20", Sexo.Hembra, "Raza20", new DateTime(2009, 01, 15), 2400, 380, 55.7, true, 11.3, 30, 35));
+            AltaOvino(new Ovino("Caravana21", Sexo.Macho, "Raza1", new DateTime(2010, 1, 1), 1500, 200, 30.5, false, 5.2, 15, 40));
+            AltaOvino(new Ovino("Caravana22", Sexo.Hembra, "Raza2", new DateTime(2011, 1, 1), 1600, 220, 35.2, true, 6.8, 18, 45));
+            AltaOvino(new Ovino("Caravana23", Sexo.Macho, "Raza3", new DateTime(2012, 1, 1), 1700, 240, 32.7, false, 5.9, 16, 50));
+            AltaOvino(new Ovino("Caravana24", Sexo.Hembra, "Raza4", new DateTime(2013, 1, 1), 1800, 260, 38.1, true, 7.5, 20, 55));
+            AltaOvino(new Ovino("Caravana25", Sexo.Macho, "Raza5", new DateTime(2014, 1, 1), 1900, 280, 36.8, false, 6.3, 17, 60));
+            AltaOvino(new Ovino("Caravana26", Sexo.Hembra, "Raza6", new DateTime(2015, 1, 1), 2000, 300, 42.4, true, 8.1, 22, 65));
+            AltaOvino(new Ovino("Caravana27", Sexo.Macho, "Raza7", new DateTime(2016, 1, 1), 2100, 320, 39.6, false, 7.2, 19, 70));
+            AltaOvino(new Ovino("Caravana28", Sexo.Hembra, "Raza8", new DateTime(2017, 1, 1), 2200, 340, 45.3, true, 9.3, 25, 75));
+            AltaOvino(new Ovino("Caravana29", Sexo.Macho, "Raza9", new DateTime(2018, 1, 1), 2300, 360, 43.9, false, 8.5, 23, 80));
+            AltaOvino(new Ovino("Caravana30", Sexo.Hembra, "Raza10", new DateTime(2019, 1, 1), 2400, 380, 49.7, true, 10.2, 27, 85));
+        }
+
         public void AltaBovino(Bovino bovino)
         {
             if (bovino is null) throw new ArgumentNullException("Object Null AltaTarea() \n");
             bovino.Validar();
-            if (_bovinos.Contains(bovino)) throw new ArgumentException("Tarea ya Existe en _tareas \n");
+            if (_bovinos.Contains(bovino)) throw new ArgumentException("Tarea ya Existe en Sistema\\List<Tarea> _tareas \n");
             _bovinos.Add(bovino);
         }
 
@@ -228,7 +506,9 @@ namespace ClassLibrary
             AltaPeon(new Peon("peon9@email.com", "password9", "Diego", new DateTime(2022, 1, 9), true));
             AltaPeon(new Peon("peon10@email.com", "password10", "Laura", new DateTime(2022, 1, 10), false));
         }
+        #endregion #region Métodos para Agregan o Modificar Información 
 
+        #region Métdos Globales
         /** Métdos Globales **/
         public void Menu()
         {
@@ -268,5 +548,6 @@ namespace ClassLibrary
             Console.Error.WriteLine(message);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+        #endregion Métdos Globales
     }
 }

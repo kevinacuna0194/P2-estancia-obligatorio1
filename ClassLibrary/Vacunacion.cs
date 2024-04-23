@@ -41,10 +41,10 @@ namespace ClassLibrary
 
         public override string ToString()
         {
-            string mensaje = String.Empty;
-            mensaje = $"Tipo de Vacuna: ${_tipoVacuna}, ";
-            mensaje += $"Fecha: ${_fecha}, ";
-            mensaje += $"Vencimiento: ${_vencimiento}";
+            string mensaje;
+            mensaje = $"Tipo de Vacuna: {_tipoVacuna} ➟ ";
+            mensaje += $"Fecha: {_fecha} ➟ ";
+            mensaje += $"Vencimiento: {_vencimiento}";
 
             return mensaje;
         }

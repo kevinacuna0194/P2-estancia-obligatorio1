@@ -8,16 +8,20 @@ namespace ClassLibrary
         private TipoAlimentacion _tipoAlimentacion;
         private decimal _precioPorKiloBovinoEnPie;
 
-        // Constructor
+        // Constructor Clase Derivada
         public Bovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, TipoAlimentacion tipoAlimentacion, decimal precioPorKiloBovinoEnPie) : base(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido)
         {
             _tipoAlimentacion = tipoAlimentacion;
             _precioPorKiloBovinoEnPie = precioPorKiloBovinoEnPie;
         }
 
-        // Propiedades de lectura y escritura
+        /** Get; Set; **/
+        public string CodigoCaravana
+        {
+            get { return _codigoCaravana; }
+        }
 
-        // Métodos
+        /** Métodos Globales **/
         public override bool Validar()
         {
             base.Validar();
@@ -29,7 +33,7 @@ namespace ClassLibrary
         public override string ToString()
         {
             string mensaje = base.ToString();
-            mensaje += $"Tipo de Alimentación: {_tipoAlimentacion} ➟ ";
+            mensaje += $"\n Tipo de Alimentación: {_tipoAlimentacion} ➟ ";
             mensaje += $"Precio por Kilo de Bovino en Pie: {_precioPorKiloBovinoEnPie}";
 
             return mensaje;

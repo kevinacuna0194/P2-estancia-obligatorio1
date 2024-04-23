@@ -16,7 +16,10 @@ namespace ClassLibrary
             _patogeno = patogeno;
         }
 
-        // Métodos
+        /** Get; Set; **/
+        public string Nombre { get { return _nombre; } }
+
+        /** Métodos **/
         public bool Validar()
         {
             if (!String.IsNullOrEmpty(_nombre) && !String.IsNullOrEmpty(_descripcion) && !String.IsNullOrEmpty(_patogeno)) return true;
@@ -25,10 +28,10 @@ namespace ClassLibrary
 
         public override string ToString()
         {
-            string mensaje = String.Empty;
-            mensaje = $"Nombre: ${_nombre}, ";
-            mensaje += $"Descripción: ${_descripcion}, ";
-            mensaje += $"patógeno: ${_patogeno}";
+            string mensaje;
+            mensaje = $"Nombre: {_nombre} ➟ ";
+            mensaje += $"Descripción: {_descripcion} ➟ ";
+            mensaje += $"patógeno: {_patogeno}";
 
             return mensaje;
         }

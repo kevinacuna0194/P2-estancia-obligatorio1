@@ -11,13 +11,12 @@ namespace ClassLibrary
         private int _capacidadMaxima;
         private List<Animal> _animales = new List<Animal>();
 
-        public Potrero(string descripcion, decimal hectareas, int capacidadMaxima, List<Animal> animales)
+        public Potrero(string descripcion, decimal hectareas, int capacidadMaxima)
         {
             _id = idContador++;
             _descripcion = descripcion;
             _hectareas = hectareas;
             _capacidadMaxima = capacidadMaxima;
-            _animales = animales;
         }
 
         public void AsignarAnimalAPotrero(Animal animal, Potrero potrero)
@@ -41,17 +40,17 @@ namespace ClassLibrary
 
         public override string ToString()
         {
-            string mensaje = String.Empty;
-            mensaje = $"ID Potrero: ${_id}, ";
-            mensaje += $"Descripción: ${_descripcion}, ";
-            mensaje += $"Hectareas: ${_hectareas}";
-            mensaje += $"Capacidad Máxima: ${_capacidadMaxima}";
+            string mensaje;
+            mensaje = $"ID Potrero: {_id} ➟ ";
+            mensaje += $"Descripción: {_descripcion} ➟ ";
+            mensaje += $"Hectareas: {_hectareas} ➟ ";
+            mensaje += $"Capacidad Máxima: {_capacidadMaxima} ➟ ";
             
             if (_animales.Count > 0)
             {
                 foreach(Animal animal in _animales)
                 {
-                    //mensaje += $"\n {animal.CodigoCaravana}, {animal.Sexo}, {animal.Raza}, {animal.FechaNacimiento}, {animal.CostoAdquisicion}, {animal.CostoAlimentacion}, {animal.pesoActual}, {animal.EsHibrido}";
+                    //mensaje += $"\n {animal.CodigoCaravana} ➟ {animal.Sexo} ➟ {animal.Raza} ➟ {animal.FechaNacimiento} ➟ {animal.CostoAdquisicion} ➟ {animal.CostoAlimentacion} ➟ {animal.pesoActual} ➟ {animal.EsHibrido}";
                     mensaje += animal.ToString();
                 }
             }

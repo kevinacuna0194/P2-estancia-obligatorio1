@@ -9,7 +9,7 @@ namespace ClassLibrary
         private decimal _precioPorKiloLana;
         private decimal _precioPorKiloOvinoEnPie;
 
-        // Constructor
+        // Constructor clase Derivada
         public Ovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, double pesoLanaEstimado, decimal precioPorKiloLana, decimal precioPorKiloEnPie) : base(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido) 
         {
             _pesoLanaEstimado = pesoLanaEstimado;
@@ -17,9 +17,10 @@ namespace ClassLibrary
             _precioPorKiloOvinoEnPie = precioPorKiloEnPie;
         }
 
-        // Propiedades de lectura y escritura
+        /** Get; Set; **/
+        public string CodigoCaravana { get { return _codigoCaravana; } }
 
-        // Métodos
+        /** Métodos Globales **/
         public override bool Validar()
         {
             base.Validar();
@@ -31,11 +32,17 @@ namespace ClassLibrary
         public override string ToString()
         {
             string mensaje = base.ToString();
-            mensaje += $"Peso Lana Estimado: ${_pesoLanaEstimado}, ";
-            mensaje += $"Precio por Kilo de Lana: ${_precioPorKiloLana}, ";
+            mensaje += $"\n Peso Lana Estimado: ${_pesoLanaEstimado} ➟ ";
+            mensaje += $"Precio por Kilo de Lana: ${_precioPorKiloLana} ➟ ";
             mensaje += $"Precio por Kilo de Ovino en Pie: ${_precioPorKiloOvinoEnPie}";
 
             return mensaje;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            Ovino ovino = obj as Ovino;
+            return ovino is not null && this._codigoCaravana.Equals(ovino._codigoCaravana);
         }
     }
 }

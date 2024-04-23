@@ -29,7 +29,7 @@ namespace ClassLibrary
 
         public override string ToString()
         {
-            string mensaje = string.Empty;
+            string mensaje;
             mensaje = $"Email: {_email} ➟ ";
             mensaje += $"Password: {_password} ➟ ";
             mensaje += $"Nombre: {_nombre} ➟ ";
