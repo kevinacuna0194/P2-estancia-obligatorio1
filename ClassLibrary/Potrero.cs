@@ -7,11 +7,11 @@ namespace ClassLibrary
         private static int idContador = 1;
         private int _id;
         private string _descripcion;
-        private decimal _hectareas;
+        private double _hectareas;
         private int _capacidadMaxima;
         private List<Animal> _animales = new List<Animal>();
 
-        public Potrero(string descripcion, decimal hectareas, int capacidadMaxima)
+        public Potrero(string descripcion, double hectareas, int capacidadMaxima)
         {
             _id = idContador++;
             _descripcion = descripcion;
@@ -19,6 +19,15 @@ namespace ClassLibrary
             _capacidadMaxima = capacidadMaxima;
         }
 
+        #region Get; Set;
+        /** Get; Set; **/
+        public double Hectareas {  get { return _hectareas; } }
+
+        public int CapacidadMaxima { get { return _capacidadMaxima;} }
+        #endregion Get; Set;
+
+        #region Métodos que Agregan o Modifican Información
+        /** Métodos que Agregan o Modifican Información **/
         public void AsignarAnimalAPotrero(Animal animal, Potrero potrero)
         {
             // Verificar si el potrero tiene capacidad para más animales
@@ -31,7 +40,10 @@ namespace ClassLibrary
             potrero._animales.Add(animal);
             animal._potreroAsignado = potrero;
         }
+        #endregion Métodos que Agregan o Modifican Información
 
+        #region Métodos Globales
+        /** Métodos Globales **/
         public bool Validar()
         {
             if (!String.IsNullOrEmpty(_descripcion) && _hectareas > 0 && _capacidadMaxima > 0 && _animales.Count > 0) return true;
@@ -61,5 +73,6 @@ namespace ClassLibrary
 
             return mensaje;
         }
+        #endregion Métodos Globales
     }
 }

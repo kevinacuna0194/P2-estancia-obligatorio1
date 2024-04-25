@@ -11,7 +11,7 @@ namespace ConsoleApp
         {
             sistema = Sistema.Instancia;
 
-            string input;
+            string? input;
             bool codigo = true;
 
             while (codigo)
@@ -30,7 +30,9 @@ namespace ConsoleApp
                         sistema.ListarOvinos();
                         break;
                     case "2":
-                        Console.WriteLine("2");
+                        int hectareas = sistema.InputNumber("Ingresar Cantidad de Hectareas");
+                        int numero = sistema.InputNumber("Ingresar Número");
+                        sistema.ListarPotrerosHectareasCapacidadMaxima(hectareas, numero);
                         break;
                     case "0":
                         Sistema.Exito("Cerrando Aplicación de Consola ■■■■■□□□");

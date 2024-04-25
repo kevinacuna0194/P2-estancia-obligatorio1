@@ -17,7 +17,7 @@ namespace ClassLibrary
         private List<Potrero> _potreros = new List<Potrero>();
 
         /** Singleton **/
-        private static Sistema _instancia;
+        private static Sistema? _instancia;
 
         /** Constructor **/
         private Sistema()
@@ -43,6 +43,21 @@ namespace ClassLibrary
 
         #region Métodos para Buscar Información
         /** Métodos para Buscar Información **/
+        public void ListarPotrerosHectareasCapacidadMaxima(double hectareas, int numero)
+        {
+            if (hectareas <= 0 || numero <= 0) throw new ArgumentOutOfRangeException("Parámetros incorrectos. ListarPotrerosHectareasCapacidadMaxima(double hectareas, int numero)");
+
+            foreach (Potrero potrero in _potreros)
+            {
+                if (potrero.Hectareas > hectareas && potrero.CapacidadMaxima > numero)
+                {
+                    Console.WriteLine(potrero.ToString() + "\n");
+                }
+            }
+            Resaltar("Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
+            Console.ReadKey();
+        }
+
         public Vacuna ObtenerVacunaPorNombre(string nombre)
         {
             if (nombre is null) throw new ArgumentNullException("String Vacío. ObtenerVacunaPorNombre(string nombre)");
@@ -126,6 +141,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Potreros. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -142,6 +158,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Vacunas. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -158,6 +175,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Ovinos. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -176,6 +194,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Bovinos. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -194,6 +213,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Tareas. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -212,6 +232,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Capataces. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
 
@@ -230,6 +251,7 @@ namespace ClassLibrary
             }
             catch (Exception ex) { Sistema.Error(ex.Message); }
 
+            Resaltar("Fin Listado de Peones. Presione una tecla para continuar. \n", ConsoleColor.DarkYellow);
             Console.ReadKey();
         }
         #endregion Métodos para Listar Información
@@ -284,7 +306,7 @@ namespace ClassLibrary
             Bovino bovino4 = ObtenerBovinoPorCodigoCaravana("Caravana15");
             Bovino bovino5 = ObtenerBovinoPorCodigoCaravana("Caravana20");
 
-            if (bovino1 is null || bovino2 is null || bovino3 is null || bovino4 is null || bovino5 is null) throw new ArgumentNullException("Object Null Sistema\\AltaVacunacion()");
+            if (bovino1 is null || bovino2 is null || bovino3 is null || bovino4 is null || bovino5 is null) throw new ArgumentNullException("Object Null. Sistema\\AltaVacunacion()");
 
             Vacuna vacuna1 = ObtenerVacunaPorNombre("Vacuna Antitetánica");
             Vacuna vacuna2 = ObtenerVacunaPorNombre("Vacuna Anticlostridial");
@@ -510,6 +532,55 @@ namespace ClassLibrary
 
         #region Métdos Globales
         /** Métdos Globales **/
+        public int InputNumber(string mensaje)
+        {
+            bool exito = false;
+            int inputNumero = 0;
+
+            while (!exito)
+            {
+                try
+                {
+                    Resaltar(mensaje + "\n", ConsoleColor.DarkBlue);
+
+                    exito = int.TryParse(Console.ReadLine(), out inputNumero);
+
+                    Console.WriteLine();
+
+                    if (!exito) throw new ArgumentOutOfRangeException("Número Incorrecto. InputText(string mensaje) \n");
+                }
+                catch (Exception e)
+                {
+                    Error(e.Message + "\n");
+                }
+            }
+
+            return inputNumero;
+        }
+
+        public string InputText(string mensaje)
+        {
+            bool exito = false;
+            string? inputText = string.Empty;
+
+            try
+            {
+                while (!exito)
+                {
+                    Resaltar(mensaje + "\n", ConsoleColor.DarkBlue);
+
+                    inputText = Console.ReadLine();
+                    if (string.IsNullOrEmpty(inputText)) throw new ArgumentException("InputText Vacío. InputString(string mensaje) \n");
+                }
+            }
+            catch (Exception e)
+            {
+                Error(e.Message + "\n");
+            }
+
+            return inputText;
+        }
+
         public void Menu()
         {
             Console.WriteLine("╰┈➤ 1 ▶ Listado de todos los animales mostrando: i.Id de caravana ii.Raza iii.Peso actual iv.Sexo \n");
