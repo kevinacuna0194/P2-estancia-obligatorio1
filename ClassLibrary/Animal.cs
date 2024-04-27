@@ -32,11 +32,15 @@ namespace ClassLibrary
         }
 
         /** Get; Set; **/
+        public string CodigoCaravana
+        {
+            get { return _codigoCaravana; }
+        }
 
         /** Vacunar un Aniamal **/
         public void Vacunar(Vacuna vacuna, DateTime fecha, DateTime vencimiento)
         {
-            // Crear una nueva instancia de Vacunacion
+            // Crear una nueva instancia de Vacunación
             Vacunacion nuevaVacunacion = new Vacunacion(vacuna, fecha, vencimiento);
 
             // Agregar la nueva vacunación a la lista de vacunaciones del animal

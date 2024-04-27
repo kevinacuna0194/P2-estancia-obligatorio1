@@ -26,13 +26,19 @@ namespace ConsoleApp
                 switch (input)
                 {
                     case "1":
-                        sistema.ListarBovinos();
-                        sistema.ListarOvinos();
+                        sistema.ListarAnimales();
                         break;
                     case "2":
                         int hectareas = sistema.InputNumber("Ingresar Cantidad de Hectareas");
-                        int numero = sistema.InputNumber("Ingresar Número");
+                        int numero = sistema.InputNumber("Ingresar Capacidad Máxima");
                         sistema.ListarPotrerosHectareasCapacidadMaxima(hectareas, numero);
+                        break;
+                    case "3":
+                        int PrecioPorKiloLana = sistema.InputNumber("Ingrese Precio por kilogramo de Lana de los Ovinos:");
+                        sistema.PrecioPorKiloLana(PrecioPorKiloLana);
+                        break;
+                    case "4":
+                        sistema.ListarOvinos();
                         break;
                     case "0":
                         Sistema.Exito("Cerrando Aplicación de Consola ■■■■■□□□");
