@@ -1,8 +1,4 @@
 ﻿using ClassLibrary.Enum;
-using Microsoft.Win32.SafeHandles;
-using System;
-using System.Security.Cryptography;
-using System.Threading;
 
 namespace ClassLibrary
 {
@@ -36,6 +32,33 @@ namespace ClassLibrary
         {
             get { if (_instancia == null) _instancia = new Sistema(); return _instancia; }
         }
+
+        public List<Empleado> Empleados
+        {
+            get { return _empleados; }
+        }
+
+        public List<Animal> Animales
+        {
+            get { return _animales; }
+        }
+
+        public List<Tarea> Tareas
+        {
+            get { return _tareas; }
+        }
+
+        public List<Vacuna> Vacunas
+        {
+            get { return _vacunas; }
+        }
+
+        public List<Potrero> Potreros
+        {
+            get { return _potreros; }
+        }
+
+        public object Program { get; private set; }
         #endregion Get; Set;
 
         #region Métodos para Buscar Información
@@ -55,13 +78,13 @@ namespace ClassLibrary
                 }
             }
 
-            if(potreros.Count == 0)
+            if (potreros.Count == 0)
             {
                 Error("No Se Encontraron Registros. \n");
                 return;
             }
 
-            foreach(Potrero potrero in potreros)
+            foreach (Potrero potrero in potreros)
             {
                 Console.WriteLine($"({contador++}) {potrero} \n");
             }
@@ -107,18 +130,26 @@ namespace ClassLibrary
 
         public Bovino ObtenerBovinoPorCodigoCaravana(string codigoCaravana)
         {
-            if (string.IsNullOrEmpty(codigoCaravana)) throw new ArgumentNullException("String Vacío. ObtenerBovinoPorCodigoCaravana(string codigoCaravana)");
-
             Bovino bovino = null;
 
-            for (int index = 0; index < _animales.Count; index++)
+            try
             {
-                Animal animal = _animales[index];
+                if (string.IsNullOrEmpty(codigoCaravana)) throw new ArgumentNullException("String Vacío. ObtenerBovinoPorCodigoCaravana(string codigoCaravana)");
 
-                if (animal.CodigoCaravana == codigoCaravana && animal is Bovino)
+                for (int index = 0; index < _animales.Count; index++)
                 {
-                    bovino = (Bovino)animal;
+                    Animal animal = _animales[index];
+
+                    if (animal.CodigoCaravana == codigoCaravana && animal is Bovino)
+                    {
+                        bovino = (Bovino)animal;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error(ex.Message);
             }
 
             return bovino;
@@ -142,216 +173,28 @@ namespace ClassLibrary
         }
         #endregion Métodos para Buscar Información
 
-        #region Métodos para Listar Información
-        /** Métodos para Listar Información **/
-        public void ListarPotreros()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE POTREROS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                int contador = 1;
-
-                foreach (Potrero potrero in _potreros)
-                {
-                    Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {potrero} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                }
-            }
-            catch (Exception ex)
-            {
-                Sistema.Error(ex.Message);
-            }
-
-            Exito("Potreros Listados con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarVacunas()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE VACUNAS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                int contador = 1;
-
-                foreach (Vacuna vacuna in _vacunas)
-                {
-                    Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {vacuna} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                }
-            }
-            catch (Exception ex)
-            {
-                Sistema.Error(ex.Message);
-            }
-
-            Exito("Vacunas Listadas con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarAnimales()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE ANIMALES ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                int contador = 1;
-
-                foreach (Animal animal in _animales)
-                {
-                    if (animal is Ovino)
-                    {
-                        Ovino ovino = (Ovino)animal;
-                        Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {ovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                    }
-                    else if (animal is Bovino)
-                    {
-                        Bovino bovino = (Bovino)animal;
-                        Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {bovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Sistema.Error(ex.Message);
-            }
-
-            Exito("Animales Listados con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarOvinos()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE OVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                if (_animales.Count == 0) throw new ArgumentOutOfRangeException("Lista de Animales Vacía. Sistema\\ListarOvinos() \n");
-
-                int contador = 1;
-
-                foreach (Animal animal in _animales)
-                {
-                    if (animal is Ovino)
-                    {
-                        Ovino ovino = (Ovino)animal;
-                        Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {ovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Sistema.Error(ex.Message);
-            }
-
-            Exito("Ovinos Listados con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarBovinos()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE BOVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                if (_animales.Count == 0) throw new ArgumentOutOfRangeException("Lista de Animales Vacía. Sistema\\ListarBovinos() \n");
-
-                int contador = 1;
-
-                foreach (Animal animal in _animales)
-                {
-                    if (animal is Bovino)
-                    {
-                        Bovino bovino = (Bovino)animal;
-                        Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {bovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Sistema.Error(ex.Message);
-            }
-
-            Exito("Bovinos Listados con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarTareas()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE TAREAS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                if (_tareas.Count == 0) throw new ArgumentOutOfRangeException("Lista de Tareas Vacía. Sistema\\ListarTareas() \n");
-
-                int contador = 1;
-
-                foreach (Tarea tarea in _tareas)
-                {
-                    Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {tarea} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                }
-            }
-            catch (Exception ex) { Sistema.Error(ex.Message); }
-
-            Exito("Tareas Listadas con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarCapataces()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE CAPATACES ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                if (_empleados.Count == 0) throw new ArgumentOutOfRangeException("Lista de Empleados Vacía. Sistema\\ListarCapataces() \n");
-
-                int contador = 1;
-
-                foreach (Empleado empleado in _empleados)
-                {
-                    if (empleado is Capataz)
-                    {
-                        Capataz capataz = (Capataz)empleado;
-                        Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {capataz} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Sistema.Error(ex.Message);
-            }
-
-            Exito("Capataces Listados con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-
-        public void ListarPeones()
-        {
-            try
-            {
-                Resaltar("▀▄▀▄▀▄ LISTADO DE PEONES ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
-
-                if (_empleados.Count == 0) throw new ArgumentOutOfRangeException("Lista de Empleados Vacía. Sistema\\ListarPeones() \n");
-
-                int contador = 1;
-
-                foreach (Empleado empleado in _empleados)
-                {
-                    if (empleado is Peon)
-                    {
-                        Peon peon = (Peon)empleado;
-                        Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {peon} ◢◤◢◤◢◤◢◤◢◤◢ \n");
-                    }
-                }
-            }
-            catch (Exception ex) { Sistema.Error(ex.Message); }
-
-            Exito("peones Listados con Éxito. Presione una Tecla Para Continuar. \n");
-            Console.ReadKey();
-        }
-        #endregion Métodos para Listar Información
-
         #region Métodos para Agregar o Modificar Información 
         /** Métodos para Agregan o Modificar Información **/
+        public void AltaBovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, TipoAlimentacion tipoAlimentacion, decimal precioPorKiloBovinoEnPie)
+        {
+            try
+            {
+                Bovino bovino = new Bovino(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido, tipoAlimentacion, precioPorKiloBovinoEnPie);
+
+                if (_animales.Contains(bovino)) throw new ArgumentException("Existe un Bovino con Código de Caravana Ingresado");
+
+                AltaAnimal(bovino);
+
+                Exito("Bovino Agregado Correctamente. \n");
+            }
+            catch (Exception ex)
+            {
+                
+                Error($"{ex.Message} \n");
+                return;
+            }
+        }
+
         public void PrecioPorKiloLana(int precioPorKiloLana)
         {
             if (precioPorKiloLana == 0) throw new ArgumentException("precioPorKiloLana = 0. Sistema\\PrecioPorKilogramoLana(int precioPorKiloLana) \n");
@@ -365,7 +208,7 @@ namespace ClassLibrary
                 }
             }
 
-            Sistema.Exito("Precio por Kilogramo de Lana de los Ovinos Modificado con Éxito. Presione una Tecla Para Continuar. \n");
+            Exito("Precio por Kilogramo de Lana de los Ovinos Modificado con Éxito. Presione una Tecla Para Continuar. \n");
             Console.ReadKey();
         }
 
@@ -411,7 +254,7 @@ namespace ClassLibrary
 
         public void VacunarBovino()
         {
-            Animal bovino1 = ObtenerBovinoPorCodigoCaravana("Caravana1");
+            Animal bovino1 = ObtenerBovinoPorCodigoCaravana("C1");
             Bovino bovino2 = ObtenerBovinoPorCodigoCaravana("Caravana5");
             Bovino bovino3 = ObtenerBovinoPorCodigoCaravana("Caravana10");
             Bovino bovino4 = ObtenerBovinoPorCodigoCaravana("Caravana15");
@@ -550,7 +393,7 @@ namespace ClassLibrary
             AltaAnimal(new Ovino("Caravana30", Sexo.Hembra, "Raza10", new DateTime(2019, 1, 1), 2400, 380, 49.7, true, 10.2, 27, 85));
 
             /** Bovinos **/
-            AltaAnimal(new Bovino("Caravana1", Sexo.Macho, "Angus", new DateTime(2019, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 25));
+            AltaAnimal(new Bovino("C1", Sexo.Macho, "Angus", new DateTime(2019, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 25));
             AltaAnimal(new Bovino("Caravana2", Sexo.Hembra, "Hereford", new DateTime(2020, 03, 22), 1600, 220, 320, true, TipoAlimentacion.Pastura, 30));
             AltaAnimal(new Bovino("Caravana3", Sexo.Macho, "Simmental", new DateTime(2021, 05, 10), 1700, 240, 340, false, TipoAlimentacion.Grano, 35));
             AltaAnimal(new Bovino("Caravana4", Sexo.Hembra, "Angus", new DateTime(2022, 07, 03), 1800, 260, 360, true, TipoAlimentacion.Pastura, 40));
@@ -649,77 +492,10 @@ namespace ClassLibrary
             AltaEmpleado(new Capataz("capataz1@email.com", "password1", "Juan", new DateTime(2022, 1, 1), 10));
             AltaEmpleado(new Capataz("capataz2@email.com", "password2", "María", new DateTime(2022, 1, 2), 8));
         }
-        #endregion #region Métodos para Agregar o Modificar Información 
+        #endregion #region Métodos para Agregar o Modificar Información
 
         #region Métodos Globales
         /** Métodos Globales **/
-        public int InputNumber(string mensaje)
-        {
-            bool exito = false;
-            int inputNumero = 0;
-
-            while (!exito)
-            {
-                try
-                {
-                    Resaltar(mensaje + "\n", ConsoleColor.DarkBlue);
-
-                    exito = int.TryParse(Console.ReadLine(), out inputNumero);
-
-                    Console.WriteLine();
-
-                    if (!exito) throw new ArgumentOutOfRangeException("Número Incorrecto. InputText(string mensaje) \n");
-                }
-                catch (Exception e)
-                {
-                    Error(e.Message + "\n");
-                }
-            }
-
-            return inputNumero;
-        }
-
-        public string InputText(string mensaje)
-        {
-            bool exito = false;
-            string? inputText = string.Empty;
-
-            try
-            {
-                while (!exito)
-                {
-                    Resaltar(mensaje + "\n", ConsoleColor.DarkBlue);
-
-                    inputText = Console.ReadLine();
-                    if (string.IsNullOrEmpty(inputText)) throw new ArgumentException("InputText Vacío. InputString(string mensaje) \n");
-                }
-            }
-            catch (Exception e)
-            {
-                Error(e.Message + "\n");
-            }
-
-            return inputText;
-        }
-
-        public void Menu()
-        {
-            Console.WriteLine("╰┈➤ 1 ▶ Listado de todos los animales mostrando: i.Id de caravana ii.Raza iii.Peso actual iv.Sexo \n");
-            Console.WriteLine("╰┈➤ 2 ▶ Digitar cantidad de hectáreas y un número. Listado de Potreros con área mayor a cantidad de hectáreas proporcionada y Capacidad máxima superior al número dado. \n");
-            Console.WriteLine("╰┈➤ 3 ▶ Establecer el precio por kilogramo de lana de los Ovinos \n");
-            Console.WriteLine("╰┈➤ 4 ▶ Alta de ganado Bovino. \n");
-            Console.WriteLine("╰┈➤ 0 ▶ Salir \n");
-        }
-
-        public void Bienvenida()
-        {
-            Resaltar("🐄 🐑 ▁ ▂ ▄ ▅ ▆ ▇ █ ESTANCIA █ ▇ ▆ ▅ ▄ ▂ ▁ 🐑 🐄", ConsoleColor.DarkMagenta);
-            Resaltar("░▒▓█ Compra y Engorde de Bovinos y Ovinos █▓▒░", ConsoleColor.DarkMagenta);
-            Console.WriteLine();
-            Resaltar("◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠ MENÚ ◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠◡◠", ConsoleColor.DarkCyan);
-            Console.WriteLine();
-        }
-
         public static void Resaltar(string mensaje, ConsoleColor color1)
         {
             Console.ForegroundColor = color1;
@@ -727,17 +503,17 @@ namespace ClassLibrary
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static void Exito(string message)
+        public static void Exito(string mensaje)
         {
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine(message);
+            Console.WriteLine(mensaje);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static void Error(string message)
+        public static void Error(string mensaje)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.Error.WriteLine(message);
+            Console.Error.WriteLine(mensaje);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
         #endregion Métodos Globales

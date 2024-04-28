@@ -38,5 +38,11 @@ namespace ClassLibrary
 
             return mensaje;
         }
+
+        public override bool Equals(object? obj)
+        {
+            Bovino bovino = obj as Bovino;
+            return bovino is not null && _codigoCaravana == bovino._codigoCaravana;
+        }
     }
 }
