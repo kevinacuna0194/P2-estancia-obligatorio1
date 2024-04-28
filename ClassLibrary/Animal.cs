@@ -1,6 +1,5 @@
 ﻿using ClassLibrary.Enum;
 using ClassLibrary.Interface;
-using System.ComponentModel.Design;
 
 namespace ClassLibrary
 {
@@ -16,7 +15,8 @@ namespace ClassLibrary
         protected double _pesoActual;
         protected bool _esHibrido;
         protected List<Vacunacion> _vacunaciones = new List<Vacunacion>();
-        internal Potrero _potreroAsignado { get; set; } // Potrero al que está asignado el animal
+        // Potrero al que está asignado el animal
+        internal Potrero _potreroAsignado;
 
         // Constructor Clase Base
         protected Animal(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido)
@@ -32,6 +32,11 @@ namespace ClassLibrary
         }
 
         /** Get; Set; **/
+        public Potrero PotreroAsignado
+        {
+            set { _potreroAsignado = value; }
+        }
+
         public string CodigoCaravana
         {
             get { return _codigoCaravana; }
@@ -64,18 +69,20 @@ namespace ClassLibrary
             mensaje += $"Costo de Adquisición: {_costoAdquisicion} ➟ ";
             mensaje += $"Costo de Alimentación: {_costoAlimentacion} ➟ ";
             mensaje += $"Peso Actual: {_pesoActual} ➟ ";
-            mensaje += $"¿Es Híbrido?: {_esHibrido} \n";
+            mensaje += $"¿Es Híbrido?: {_esHibrido}  ➟ ";
+
+            mensaje += $"\n \n Registro de Vacunación: \n";
 
             if (_vacunaciones.Count > 0)
             {
                 foreach (Vacunacion vacunacion in _vacunaciones)
                 {
-                    mensaje += $"\n ➽ {vacunacion.ToString()} \n";
+                    mensaje += $"\n ➜ {vacunacion} \n";
                 }
             }
             else
             {
-                mensaje += $"\n ➽ No Hay Registros de Vacunación \n";
+                mensaje += $"\n ➜ No Hay Registros de Vacunación \n";
             }
 
             return mensaje;

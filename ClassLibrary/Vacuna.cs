@@ -4,6 +4,8 @@ namespace ClassLibrary
 {
     public class Vacuna : IValidar
     {
+        private static int idContador = 1;
+        private int _id;
         private string _nombre;
         private string _descripcion;
         private string _patogeno;
@@ -11,13 +13,22 @@ namespace ClassLibrary
         // Constructor
         public Vacuna(string nombre, string descripcion, string patogeno)
         {
+            _id = idContador++;
             _nombre = nombre;
             _descripcion = descripcion;
             _patogeno = patogeno;
         }
 
         /** Get; Set; **/
-        public string Nombre { get { return _nombre; } }
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        public string Nombre
+        {
+            get { return _nombre; }
+        }
 
         /** Métodos **/
         public bool Validar()

@@ -5,6 +5,8 @@ namespace ClassLibrary
     // Clase para los ovinos, derivada de Animal
     public class Ovino : Animal
     {
+        private static int idContador = 1;
+        private int _id;
         private double _pesoLanaEstimado;
         private decimal _precioPorKiloLana;
         private decimal _precioPorKiloOvinoEnPie;
@@ -12,12 +14,18 @@ namespace ClassLibrary
         // Constructor clase Derivada
         public Ovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, double pesoLanaEstimado, decimal precioPorKiloLana, decimal precioPorKiloEnPie) : base(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido)
         {
+            _id = idContador++;
             _pesoLanaEstimado = pesoLanaEstimado;
             _precioPorKiloLana = precioPorKiloLana;
             _precioPorKiloOvinoEnPie = precioPorKiloEnPie;
         }
 
         /** Get; Set; **/
+        public int Id
+        {
+            get { return _id; }
+        }
+
         public string CodigoCaravana
         {
             get { return _codigoCaravana; }

@@ -1,4 +1,5 @@
 ﻿using ClassLibrary.Interface;
+
 namespace ClassLibrary
 {
     public class Tarea : IValidar

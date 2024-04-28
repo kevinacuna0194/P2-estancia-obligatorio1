@@ -20,7 +20,7 @@ namespace ClassLibrary
             _fechaIngreso = fechaIngreso;
         }
 
-        // Métodods
+        // Métodos
         public virtual bool Validar()
         {
             if (!string.IsNullOrEmpty(_email) && !string.IsNullOrEmpty(_password) && _password.Length >= 8 && !string.IsNullOrEmpty(_nombre) && _fechaIngreso > DateTime.Today) return true;

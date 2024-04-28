@@ -5,12 +5,15 @@ namespace ClassLibrary
     // Clase para el Peon, derivada de Animal
     public class Peon : Empleado
     {
+        private static int idContador = 1;
+        private int _id;
         private bool _residenteEstancia;
         private List<Tarea> _tareasAsignadas = new List<Tarea>();
 
         // Constructor
         public Peon(string email, string password, string nombre, DateTime fechaIngreso, bool residenteEstancia) : base(email, password, nombre, fechaIngreso)
         {
+            _id = idContador++;
             _residenteEstancia = residenteEstancia;
         }
 
@@ -19,6 +22,11 @@ namespace ClassLibrary
         {
             get { return _tareasAsignadas; }
             set { _tareasAsignadas = value; }
+        }
+
+        public int Id
+        {
+            get { return _id; }
         }
 
         /** Métodos Que Agregan o Modifican Información **/
@@ -37,14 +45,20 @@ namespace ClassLibrary
         public override string ToString()
         {
             string mensaje = base.ToString();
-            mensaje += $"¿Es Residente de la Estancia?: {_residenteEstancia}";
+            mensaje += $"¿Es Residente de la Estancia?: {_residenteEstancia} ➟ ";
+
+            mensaje += $"\n \n Tareas Asignadas: \n";
 
             if (_tareasAsignadas.Count > 0)
             {
                 foreach (Tarea tarea in _tareasAsignadas)
                 {
-                    mensaje += tarea.ToString();
+                    mensaje += $"\n ➜ {tarea} \n";
                 }
+            }
+            else
+            {
+                mensaje += $"\n ➜ No Hay Tareas Asignadas ";
             }
 
             return mensaje;
@@ -53,7 +67,7 @@ namespace ClassLibrary
         public override bool Equals(object? obj)
         {
             Peon peon = obj as Peon;
-            return peon is not null && this._nombre.Equals(peon._nombre) && this._email.Equals(peon._email);
+            return peon is not null && _nombre.Equals(peon._nombre) && _email.Equals(peon._email);
         }
     }
 }

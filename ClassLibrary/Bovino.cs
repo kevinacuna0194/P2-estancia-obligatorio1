@@ -5,17 +5,25 @@ namespace ClassLibrary
     // Clase para los bovinos, derivada de Animal
     public class Bovino : Animal
     {
+        private static int idContador = 1;
+        private int _id;
         private TipoAlimentacion _tipoAlimentacion;
         private decimal _precioPorKiloBovinoEnPie;
 
         // Constructor Clase Derivada
         public Bovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, TipoAlimentacion tipoAlimentacion, decimal precioPorKiloBovinoEnPie) : base(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido)
         {
+            _id = idContador++;
             _tipoAlimentacion = tipoAlimentacion;
             _precioPorKiloBovinoEnPie = precioPorKiloBovinoEnPie;
         }
 
         /** Get; Set; **/
+        public int Id
+        {
+            get { return _id; }
+        }
+
         public string CodigoCaravana
         {
             get { return _codigoCaravana; }

@@ -1,6 +1,6 @@
 ﻿using ClassLibrary;
 using ClassLibrary.Enum;
-using System.Linq.Expressions;
+using System.Threading;
 
 namespace ConsoleApp
 {
@@ -17,8 +17,6 @@ namespace ConsoleApp
 
             while (codigo)
             {
-                Console.Clear();
-
                 Bienvenida();
                 Menu();
                 input = Console.ReadLine();
@@ -28,8 +26,6 @@ namespace ConsoleApp
                 {
                     /** Listado de todos los animales **/
                     case "1":
-                        Console.Clear();
-
                         ListarAnimales();
                         break;
                     /** mostrar todos los potreros con área mayor a dicha cantidad de hectáreas y una capacidad máxima superior al número dado **/
@@ -78,9 +74,6 @@ namespace ConsoleApp
                             int precioPorKiloBovinoEnPie = InputNumber("Ingrese Precio Por Kilo en Pie: ");
 
                             sistema.AltaBovino(codigoCaravana, sexo, raza, fechaNacimiento, costoAdquisicion, costoAlimentacion, pesoActual, esHibrido, tipoAlimentacion, precioPorKiloBovinoEnPie);
-
-                            Sistema.Exito("Presione una Tecla Para Continuar. \n");
-                            Console.ReadKey();
                         }
                         else
                         {
@@ -90,22 +83,43 @@ namespace ConsoleApp
 
                         break;
                     case "5":
-                        Console.Clear();
                         ListarBovinos();
                         break;
                     case "6":
-                        Console.Clear();
                         ListarOvinos();
                         break;
+                    case "7":
+                        ListarPotreros();
+                        break;
+                    case "8":
+                        ListarAnimalesPorPotrero();
+                        break;
+                    case "9":
+                        ListarVacunas();
+                        break;
+                    case "10":
+                        ListarPeones();
+                        break;
+                    case "11":
+                        ListarCapataces();
+                        break;
+                    case "12":
+                        ListarTareas();
+                        break;
+                    case "13":
+                        ListarTareasPorPeon();
+                        break;
                     case "0":
-                        Sistema.Exito("Cerrando Aplicación de Consola ■■■■■□□□");
+                        Sistema.Exito("Cerrando Aplicación de Consola".ToUpper());
                         codigo = false;
                         break;
                     default:
-                        Sistema.Error("❰❰❰❰ Seleccione Una Opción Correcta. Presione una Tecla Para Continuar. ❱❱❱❱ \n");
+                        Sistema.Error("Opción Inválida. Presione una Tecla Para Continuar. \n".ToUpper());
                         Console.ReadKey();
                         break;
                 }
+
+                Console.Clear();
             }
         }
 
@@ -115,8 +129,92 @@ namespace ConsoleApp
 
         #region Métodos que Listan Información
         /** Métodos para Listar Información **/
+        static void ListarTareasPorPeon()
+        {
+            try
+            {
+                Console.Clear();
+
+                Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE TAREAS POR PEÓN ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                int contador = 1;
+
+                foreach (Empleado empleado in sistema.Empleados)
+                {
+                    if (empleado is Peon)
+                    {
+                        Peon peon = (Peon)empleado;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ PEÓN {peon.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
+                        foreach (Tarea tarea in peon.TareasAsignadas)
+                        {
+                            Console.WriteLine($"➜ {tarea} \n");
+                        }
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Sistema.Error($"{ex.Message} \n");
+            }
+
+            Sistema.Exito("Tareas por Peón Listadas con Éxito. Presione una Tecla Para Continuar. \n");
+            Console.ReadKey();
+        }
+
+        static void ListarAnimalesPorPotrero()
+        {
+            try
+            {
+                Console.Clear();
+
+                Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE ANIMALES POR POTRERO ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                int contador = 1;
+
+                foreach (Potrero potrero in sistema.Potreros)
+                {
+                    Sistema.Resaltar($"▀▄▀▄▀▄ POTRERO {potrero.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
+                    foreach (Animal animal in potrero.Animales)
+                    {
+                        if (animal is Ovino)
+                        {
+                            Ovino ovino = (Ovino)animal;
+
+                            Sistema.Resaltar($"▀▄▀▄▀▄ OVINO {ovino.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkGray);
+
+                            Console.WriteLine($"➜ {animal} \n");
+                        }
+                        else if (animal is Bovino)
+                        {
+                            Bovino bovino = (Bovino)animal;
+
+                            Sistema.Resaltar($"▀▄▀▄▀▄ BOVINO {bovino.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkGray);
+
+                            Console.WriteLine($"➜ {animal} \n");
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Sistema.Error($"{ex.Message} \n");
+            }
+
+            Sistema.Exito("Animales por Potrero Listados con Éxito. Presione una Tecla Para Continuar. \n");
+            Console.ReadKey();
+        }
+
         static void ListarPotreros()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE POTREROS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -125,6 +223,8 @@ namespace ConsoleApp
 
                 foreach (Potrero potrero in sistema.Potreros)
                 {
+                    Sistema.Resaltar($"▀▄▀▄▀▄ POTRERO {potrero.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                     Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {potrero} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                 }
             }
@@ -139,6 +239,8 @@ namespace ConsoleApp
 
         static void ListarVacunas()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE VACUNAS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -147,6 +249,8 @@ namespace ConsoleApp
 
                 foreach (Vacuna vacuna in sistema.Vacunas)
                 {
+                    Sistema.Resaltar($"▀▄▀▄▀▄ VACUNA {vacuna.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                     Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {vacuna} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                 }
             }
@@ -161,6 +265,8 @@ namespace ConsoleApp
 
         static void ListarAnimales()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE ANIMALES ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -174,11 +280,17 @@ namespace ConsoleApp
                     if (animal is Ovino)
                     {
                         Ovino ovino = (Ovino)animal;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ OVINO {ovino.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                         Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {ovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                     }
                     else if (animal is Bovino)
                     {
                         Bovino bovino = (Bovino)animal;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ BOVINO {bovino.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                         Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {bovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                     }
                 }
@@ -194,6 +306,8 @@ namespace ConsoleApp
 
         static void ListarOvinos()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE OVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -207,6 +321,9 @@ namespace ConsoleApp
                     if (animal is Ovino)
                     {
                         Ovino ovino = (Ovino)animal;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ OVINO {ovino.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                         Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {ovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                     }
                 }
@@ -222,6 +339,8 @@ namespace ConsoleApp
 
         static void ListarBovinos()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE BOVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -235,6 +354,9 @@ namespace ConsoleApp
                     if (animal is Bovino)
                     {
                         Bovino bovino = (Bovino)animal;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ BOVINO {bovino.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                         Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {bovino} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                     }
                 }
@@ -250,6 +372,8 @@ namespace ConsoleApp
 
         static void ListarTareas()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE TAREAS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -260,6 +384,8 @@ namespace ConsoleApp
 
                 foreach (Tarea tarea in sistema.Tareas)
                 {
+                    Sistema.Resaltar($"▀▄▀▄▀▄ TAREA {tarea.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                     Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {tarea} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                 }
             }
@@ -274,6 +400,8 @@ namespace ConsoleApp
 
         static void ListarCapataces()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE CAPATACES ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -287,6 +415,9 @@ namespace ConsoleApp
                     if (empleado is Capataz)
                     {
                         Capataz capataz = (Capataz)empleado;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ CAPATAZ {capataz.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                         Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {capataz} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                     }
                 }
@@ -302,6 +433,8 @@ namespace ConsoleApp
 
         static void ListarPeones()
         {
+            Console.Clear();
+
             try
             {
                 Sistema.Resaltar("▀▄▀▄▀▄ LISTADO DE PEONES ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -315,6 +448,9 @@ namespace ConsoleApp
                     if (empleado is Peon)
                     {
                         Peon peon = (Peon)empleado;
+
+                        Sistema.Resaltar($"▀▄▀▄▀▄ PEÓN {peon.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
                         Console.WriteLine($"◢◤◢◤◢◤◢◤◢◤◢ ({contador++}) {peon} ◢◤◢◤◢◤◢◤◢◤◢ \n");
                     }
                 }
@@ -548,16 +684,26 @@ namespace ConsoleApp
         static void Menu()
         {
             Console.WriteLine("╰┈➤ 1 ▶ Listado de Todos los Animales \n".ToUpper());
-            Console.WriteLine("╰┈➤ 2 ▶ Digitar cantidad de Hectáreas y un Número. Listado de Potreros con Área Mayor a Cantidad de Hectáreas Proporcionada y Capacidad Máxima Superior al Número Dado. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 2 ▶ Listado de Potreros con Área Mayor a Cantidad de Hectáreas Proporcionada y Capacidad Máxima Superior al Número Dado. \n".ToUpper());
             Console.WriteLine("╰┈➤ 3 ▶ Establecer el Precio por Kilogramo de Lana de los Ovinos \n".ToUpper());
             Console.WriteLine("╰┈➤ 4 ▶ Alta de Ganado Bovino. \n".ToUpper());
             Console.WriteLine("╰┈➤ 5 ▶ Listar Ganado Bovino. \n".ToUpper());
             Console.WriteLine("╰┈➤ 6 ▶ Listar Ganado Ovino. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 7 ▶ Listar Potreros. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 8 ▶ Listar Animales por Potrero. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 9 ▶ Listar Vacunas \n".ToUpper());
+            Console.WriteLine("╰┈➤ 10 ▶ Listar Peones. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 11 ▶ Listar Capataces. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 12 ▶ Listar Tareas. \n".ToUpper());
+            Console.WriteLine("╰┈➤ 13 ▶ Listar Tareas Por Peón. \n".ToUpper());
             Console.WriteLine("╰┈➤ 0 ▶ Salir \n".ToUpper());
         }
 
         static void Bienvenida()
         {
+            Console.Clear();
+            SaltoDeLinea();
+
             Sistema.Resaltar("🐄 🐑 ▁ ▂ ▄ ▅ ▆ ▇ █ ESTANCIA █ ▇ ▆ ▅ ▄ ▂ ▁ 🐑 🐄", ConsoleColor.DarkMagenta);
             Sistema.Resaltar("░▒▓█ Compra y Engorde de Bovinos y Ovinos █▓▒░".ToUpper(), ConsoleColor.DarkMagenta);
             Console.WriteLine();

@@ -24,6 +24,8 @@ namespace ClassLibrary
             PrecargarPotrero();
             VacunarBovino();
             VacunarOvino();
+            AsignarAnimalAlPotrero();
+            AsignarTareaAlPeon();
         }
 
         #region Get; Set;
@@ -80,22 +82,56 @@ namespace ClassLibrary
 
             if (potreros.Count == 0)
             {
-                Error("No Se Encontraron Registros. \n");
+                Error("No Se Encontraron Registros. Presione una Tecla Para Continuar. \n");
+                Console.ReadKey();
                 return;
             }
 
             foreach (Potrero potrero in potreros)
             {
-                Console.WriteLine($"({contador++}) {potrero} \n");
+                Sistema.Resaltar($"▀▄▀▄▀▄ POTRERO {potrero.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                Console.WriteLine($"({contador++}) {potrero} ");
             }
 
             Exito("Potreros Listados con Éxito. Presione una Tecla Para Continuar. \n");
             Console.ReadKey();
         }
 
+        public Potrero ObtenerPotreroPorId(int id)
+        {
+            Potrero potrero = null;
+
+            try
+            {
+                if (id <= 0) throw new ArgumentOutOfRangeException("ID 0. ObtenerPotreroPorId(int id)");
+
+                int index = 0;
+                while (index < _potreros.Count && potrero is null)
+                {
+                    if (_potreros[index].Id == id)
+                    {
+                        potrero = _potreros[index];
+                    }
+
+                    index++;
+                }
+
+                if (potrero is null) throw new ArgumentException("No Exite Potrero con ID Ingresada");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
+            }
+
+            return potrero;
+        }
+
         public Vacuna ObtenerVacunaPorNombre(string nombre)
         {
             if (nombre is null) throw new ArgumentNullException("String Vacío. ObtenerVacunaPorNombre(string nombre)");
+
             Vacuna vacuna = null;
 
             int index = 0;
@@ -171,10 +207,266 @@ namespace ClassLibrary
 
             return tarea;
         }
+
+        public Peon ObtenerPeonPorId(int id)
+        {
+            if (id <= 0) throw new ArgumentException("ID 0. ObtenerPeonPorId(int id)");
+
+            Peon peon = null;
+
+            int index = 0;
+            while (index < _empleados.Count && peon is null)
+            {
+                Empleado empleado = _empleados[index];
+
+                if (empleado is Peon)
+                {
+                    Peon pawn = (Peon)empleado;
+
+                    if (pawn.Id == id)
+                    {
+                        peon = pawn;
+                    }
+                }
+
+                index++;
+            }
+
+            return peon;
+        }
         #endregion Métodos para Buscar Información
 
         #region Métodos para Agregar o Modificar Información 
         /** Métodos para Agregan o Modificar Información **/
+        public void AsignarTareaAlPeon()
+        {
+            try
+            {
+                Peon peon1 = ObtenerPeonPorId(1);
+                Peon peon2 = ObtenerPeonPorId(2);
+                Peon peon3 = ObtenerPeonPorId(3);
+                Peon peon4 = ObtenerPeonPorId(4);
+                Peon peon5 = ObtenerPeonPorId(5);
+                Peon peon6 = ObtenerPeonPorId(6);
+                Peon peon7 = ObtenerPeonPorId(7);
+                Peon peon8 = ObtenerPeonPorId(8);
+                Peon peon9 = ObtenerPeonPorId(9);
+                Peon peon10 = ObtenerPeonPorId(10);
+
+                if (peon1 is null || peon2 is null || peon3 is null || peon4 is null || peon5 is null || peon6 is null || peon7 is null || peon8 is null || peon9 is null || peon10 is null)
+                {
+                    throw new InvalidOperationException("Object Null. Sistema.cs\\AsignarTareaAlPeon()");
+                }
+
+                Tarea tarea1 = ObtenerTareaPorId(1);
+                Tarea tarea2 = ObtenerTareaPorId(2);
+                Tarea tarea3 = ObtenerTareaPorId(3);
+                Tarea tarea4 = ObtenerTareaPorId(4);
+                Tarea tarea5 = ObtenerTareaPorId(5);
+                Tarea tarea6 = ObtenerTareaPorId(6);
+                Tarea tarea7 = ObtenerTareaPorId(7);
+                Tarea tarea8 = ObtenerTareaPorId(8);
+                Tarea tarea9 = ObtenerTareaPorId(9);
+                Tarea tarea10 = ObtenerTareaPorId(10);
+                Tarea tarea11 = ObtenerTareaPorId(11);
+                Tarea tarea12 = ObtenerTareaPorId(12);
+                Tarea tarea13 = ObtenerTareaPorId(13);
+                Tarea tarea14 = ObtenerTareaPorId(14);
+                Tarea tarea15 = ObtenerTareaPorId(15);
+
+                if (tarea1 is null || tarea2 is null || tarea3 is null || tarea4 is null || tarea5 is null || tarea6 is null || tarea7 is null || tarea8 is null || tarea9 is null || tarea10 is null || tarea11 is null || tarea12 is null || tarea13 is null || tarea14 is null || tarea15 is null)
+                {
+                    throw new InvalidOperationException("Object Null. Sistema.cs\\AsignarTareaAlPeon()");
+                }
+
+                peon1.AsignarTarea(tarea1);
+                peon1.AsignarTarea(tarea2);
+
+                peon2.AsignarTarea(tarea3);
+                peon2.AsignarTarea(tarea4);
+
+                peon3.AsignarTarea(tarea5);
+                peon3.AsignarTarea(tarea6);
+
+                peon4.AsignarTarea(tarea7);
+                peon4.AsignarTarea(tarea8);
+
+                peon5.AsignarTarea(tarea9);
+                peon5.AsignarTarea(tarea10);
+
+                peon6.AsignarTarea(tarea11);
+                peon6.AsignarTarea(tarea12);
+
+                peon7.AsignarTarea(tarea13);
+                peon7.AsignarTarea(tarea14);
+
+                peon8.AsignarTarea(tarea15);
+                peon8.AsignarTarea(tarea1);
+
+                peon9.AsignarTarea(tarea2);
+                peon9.AsignarTarea(tarea3);
+
+                peon10.AsignarTarea(tarea4);
+                peon10.AsignarTarea(tarea5);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
+                return;
+            }
+        }
+
+        private Exception InvalidOperationException()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AsignarAnimalAlPotrero()
+        {
+            try
+            {
+                Potrero potrero1 = ObtenerPotreroPorId(1);
+                Potrero potrero2 = ObtenerPotreroPorId(2);
+                Potrero potrero3 = ObtenerPotreroPorId(3);
+                Potrero potrero4 = ObtenerPotreroPorId(4);
+                Potrero potrero5 = ObtenerPotreroPorId(5);
+                Potrero potrero6 = ObtenerPotreroPorId(6);
+                Potrero potrero7 = ObtenerPotreroPorId(7);
+                Potrero potrero8 = ObtenerPotreroPorId(8);
+                Potrero potrero9 = ObtenerPotreroPorId(9);
+                Potrero potrero10 = ObtenerPotreroPorId(10);
+
+                if (potrero1 is null || potrero2 is null || potrero3 is null || potrero4 is null || potrero5 is null || potrero6 is null || potrero7 is null || potrero8 is null || potrero9 is null || potrero10 is null)
+                {
+                    throw new ArgumentException("Object Null. Sistema.cs\\AsignarAnimalAlPotrero()");
+                }
+
+                List<Ovino> ovinos = new List<Ovino>();
+                List<Bovino> bovinos = new List<Bovino>();
+
+                for (int index = 0; index < _animales.Count; index++)
+                {
+                    Animal animal = _animales[index];
+
+                    if (animal is Ovino)
+                    {
+                        Ovino ovino = (Ovino)animal;
+                        ovinos.Add(ovino);
+                    }
+                    else if (animal is Bovino)
+                    {
+                        Bovino bovino = (Bovino)animal;
+                        bovinos.Add(bovino);
+                    }
+                }
+
+                /** Asignar Potrero Ovino **/
+                foreach (Ovino ovino in ovinos)
+                {
+                    if (ovino.CodigoCaravana == "Caravana1" || ovino.CodigoCaravana == "Caravana2" || ovino.CodigoCaravana == "Caravana3")
+                    {
+                        potrero1.AsignarPotrero(ovino, potrero1);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana4" || ovino.CodigoCaravana == "Caravana5" || ovino.CodigoCaravana == "Caravana6")
+                    {
+                        potrero2.AsignarPotrero(ovino, potrero2);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana7" || ovino.CodigoCaravana == "Caravana8" || ovino.CodigoCaravana == "Caravana9")
+                    {
+                        potrero3.AsignarPotrero(ovino, potrero3);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana10" || ovino.CodigoCaravana == "Caravana11" || ovino.CodigoCaravana == "Caravana12")
+                    {
+                        potrero4.AsignarPotrero(ovino, potrero4);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana13" || ovino.CodigoCaravana == "Caravana14" || ovino.CodigoCaravana == "Caravana15")
+                    {
+                        potrero5.AsignarPotrero(ovino, potrero5);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana16" || ovino.CodigoCaravana == "Caravana17" || ovino.CodigoCaravana == "Caravana18")
+                    {
+                        potrero6.AsignarPotrero(ovino, potrero6);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana19" || ovino.CodigoCaravana == "Caravana20" || ovino.CodigoCaravana == "Caravana21")
+                    {
+                        potrero7.AsignarPotrero(ovino, potrero7);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana22" || ovino.CodigoCaravana == "Caravana23" || ovino.CodigoCaravana == "Caravana24")
+                    {
+                        potrero8.AsignarPotrero(ovino, potrero8);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana25" || ovino.CodigoCaravana == "Caravana26" || ovino.CodigoCaravana == "Caravana27")
+                    {
+                        potrero9.AsignarPotrero(ovino, potrero9);
+                    }
+                    else if (ovino.CodigoCaravana == "Caravana28" || ovino.CodigoCaravana == "Caravana29" || ovino.CodigoCaravana == "Caravana30")
+                    {
+                        potrero10.AsignarPotrero(ovino, potrero10);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Error Al Asignar Ovino al Potrero");
+                    }
+                }
+
+                /** Asignar Potrero Bovino **/
+                foreach (Bovino bovino in bovinos)
+                {
+                    if (bovino.CodigoCaravana == "Caravana1" || bovino.CodigoCaravana == "Caravana2" || bovino.CodigoCaravana == "Caravana3")
+                    {
+                        potrero1.AsignarPotrero(bovino, potrero1);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana4" || bovino.CodigoCaravana == "Caravana5" || bovino.CodigoCaravana == "Caravana6")
+                    {
+                        potrero2.AsignarPotrero(bovino, potrero2);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana7" || bovino.CodigoCaravana == "Caravana8" || bovino.CodigoCaravana == "Caravana9")
+                    {
+                        potrero3.AsignarPotrero(bovino, potrero3);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana10" || bovino.CodigoCaravana == "Caravana11" || bovino.CodigoCaravana == "Caravana12")
+                    {
+                        potrero4.AsignarPotrero(bovino, potrero4);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana13" || bovino.CodigoCaravana == "Caravana14" || bovino.CodigoCaravana == "Caravana15")
+                    {
+                        potrero5.AsignarPotrero(bovino, potrero5);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana16" || bovino.CodigoCaravana == "Caravana17" || bovino.CodigoCaravana == "Caravana18")
+                    {
+                        potrero6.AsignarPotrero(bovino, potrero6);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana19" || bovino.CodigoCaravana == "Caravana20" || bovino.CodigoCaravana == "Caravana21")
+                    {
+                        potrero7.AsignarPotrero(bovino, potrero7);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana22" || bovino.CodigoCaravana == "Caravana23" || bovino.CodigoCaravana == "Caravana24")
+                    {
+                        potrero8.AsignarPotrero(bovino, potrero8);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana25" || bovino.CodigoCaravana == "Caravana26" || bovino.CodigoCaravana == "Caravana27")
+                    {
+                        potrero9.AsignarPotrero(bovino, potrero9);
+                    }
+                    else if (bovino.CodigoCaravana == "Caravana28" || bovino.CodigoCaravana == "Caravana29" || bovino.CodigoCaravana == "Caravana30")
+                    {
+                        potrero10.AsignarPotrero(bovino, potrero10);
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Error Al Asignar Bovino al Potrero");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
+                return;
+            }
+        }
+
         public void AltaBovino(string codigoCaravana, Sexo sexo, string raza, DateTime fechaNacimiento, decimal costoAdquisicion, decimal costoAlimentacion, double pesoActual, bool esHibrido, TipoAlimentacion tipoAlimentacion, decimal precioPorKiloBovinoEnPie)
         {
             try
@@ -185,11 +477,11 @@ namespace ClassLibrary
 
                 AltaAnimal(bovino);
 
-                Exito("Bovino Agregado Correctamente. \n");
+                Exito("Bovino Agregado Correctamente. Presione una Tecla Para Continuar. \n");
+                Console.ReadKey();
             }
             catch (Exception ex)
             {
-                
                 Error($"{ex.Message} \n");
                 return;
             }
@@ -254,7 +546,7 @@ namespace ClassLibrary
 
         public void VacunarBovino()
         {
-            Animal bovino1 = ObtenerBovinoPorCodigoCaravana("C1");
+            Animal bovino1 = ObtenerBovinoPorCodigoCaravana("Caravana1");
             Bovino bovino2 = ObtenerBovinoPorCodigoCaravana("Caravana5");
             Bovino bovino3 = ObtenerBovinoPorCodigoCaravana("Caravana10");
             Bovino bovino4 = ObtenerBovinoPorCodigoCaravana("Caravana15");
@@ -393,7 +685,7 @@ namespace ClassLibrary
             AltaAnimal(new Ovino("Caravana30", Sexo.Hembra, "Raza10", new DateTime(2019, 1, 1), 2400, 380, 49.7, true, 10.2, 27, 85));
 
             /** Bovinos **/
-            AltaAnimal(new Bovino("C1", Sexo.Macho, "Angus", new DateTime(2019, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 25));
+            AltaAnimal(new Bovino("Caravana1", Sexo.Macho, "Angus", new DateTime(2019, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 25));
             AltaAnimal(new Bovino("Caravana2", Sexo.Hembra, "Hereford", new DateTime(2020, 03, 22), 1600, 220, 320, true, TipoAlimentacion.Pastura, 30));
             AltaAnimal(new Bovino("Caravana3", Sexo.Macho, "Simmental", new DateTime(2021, 05, 10), 1700, 240, 340, false, TipoAlimentacion.Grano, 35));
             AltaAnimal(new Bovino("Caravana4", Sexo.Hembra, "Angus", new DateTime(2022, 07, 03), 1800, 260, 360, true, TipoAlimentacion.Pastura, 40));

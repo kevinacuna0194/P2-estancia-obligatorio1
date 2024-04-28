@@ -21,24 +21,45 @@ namespace ClassLibrary
 
         #region Get; Set;
         /** Get; Set; **/
-        public double Hectareas {  get { return _hectareas; } }
+        public List<Animal> Animales
+        {
+            get { return _animales; }
+        }
 
-        public int CapacidadMaxima { get { return _capacidadMaxima;} }
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        public double Hectareas
+        {
+            get { return _hectareas; }
+        }
+
+        public int CapacidadMaxima
+        {
+            get { return _capacidadMaxima; }
+        }
         #endregion Get; Set;
 
         #region Métodos que Agregan o Modifican Información
         /** Métodos que Agregan o Modifican Información **/
-        public void AsignarAnimalAPotrero(Animal animal, Potrero potrero)
+        public void AsignarPotrero(Animal animal, Potrero potrero)
         {
-            // Verificar si el potrero tiene capacidad para más animales
-            if (potrero._animales.Count >= potrero._capacidadMaxima)
+            try
             {
-                throw new InvalidOperationException("El potrero está lleno.");
-            }
+                // Verificar si el potrero tiene capacidad para más animales
+                if (potrero._animales.Count >= potrero._capacidadMaxima) throw new InvalidOperationException("El Potrero Está Lleno.");
 
-            // Agregar el animal al potrero y asignarle el potrero
-            potrero._animales.Add(animal);
-            animal._potreroAsignado = potrero;
+                // Agregar el animal al potrero y asignarle el potrero
+                potrero._animales.Add(animal);
+                animal.PotreroAsignado = potrero;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Sistema.Error($"{ex.Message} \n");
+            }
         }
         #endregion Métodos que Agregan o Modifican Información
 
@@ -57,18 +78,19 @@ namespace ClassLibrary
             mensaje += $"Descripción: {_descripcion} ➟ ";
             mensaje += $"Hectareas: {_hectareas} ➟ ";
             mensaje += $"Capacidad Máxima: {_capacidadMaxima} ➟ ";
-            
+
+            mensaje += $"\n \n Animales en Potrero: \n";
+
             if (_animales.Count > 0)
             {
-                foreach(Animal animal in _animales)
+                foreach (Animal animal in _animales)
                 {
-                    //mensaje += $"\n {animal.CodigoCaravana} ➟ {animal.Sexo} ➟ {animal.Raza} ➟ {animal.FechaNacimiento} ➟ {animal.CostoAdquisicion} ➟ {animal.CostoAlimentacion} ➟ {animal.pesoActual} ➟ {animal.EsHibrido}";
-                    mensaje += animal.ToString();
+                    mensaje += $"\n ➜ {animal} \n";
                 }
             }
             else
             {
-                mensaje += $"No hay registros de Animales en el Potrero";
+                mensaje += $"\n ➜ No hay registros de Animales en el Potrero \n";
             }
 
             return mensaje;
