@@ -65,23 +65,50 @@ namespace ClassLibrary
 
         #region Métodos paraCalcular
         /** Métodos paraCalcular **/
-        public decimal CostoCrianzaAnimal(Animal animal)
+        public decimal PrecioVentaOvino(Ovino ovino)
         {
+            decimal costoTotal = 0;
+
             try
             {
+                if (ovino is null) throw new ArgumentNullException("Object Null. Sistema.cs\\PrecioVentaOvino(Ovino ovino)");
 
+                decimal precioVenta = ((decimal)ovino.PesoLanaEstimado * ovino.PrecioPorKiloLana) + (ovino.PrecioPorKiloOvinoEnPie * (decimal)ovino.PesoActual);
+
+                decimal descuento = (ovino.EsHibrido) ? precioVenta * 0.05m : 0;
+
+                costoTotal = precioVenta - descuento;
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
             }
-            decimal costoCrianzaAnimal = animal.CostoAdquisicion + animal.CostoAlimentacion;
 
-            int cantidadVacunas = animal.Vacunaciones.Count;
+            return costoTotal;
+        }
 
-            decimal costoVacunas = cantidadVacunas * 200;
+        public decimal CostoCrianzaAnimal(Animal? animal)
+        {
+            decimal costoTotal = 0;
 
-            decimal costoTotal = costoCrianzaAnimal + costoVacunas;
+            try
+            {
+                if (animal is null) throw new ArgumentNullException("Object Null. Sistema.cs\\CostoCrianzaAnimal(Animal animal)");
+
+                decimal costoCrianzaAnimal = animal.CostoAdquisicion + animal.CostoAlimentacion;
+
+                int cantidadVacunas = animal.Vacunaciones.Count;
+
+                decimal costoVacunas = cantidadVacunas * 200;
+
+                costoTotal = costoCrianzaAnimal + costoVacunas;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
+            }
 
             return costoTotal;
         }
@@ -125,6 +152,8 @@ namespace ClassLibrary
 
         public Potrero ObtenerPotreroPorId(int id)
         {
+            if (id <= 0) throw new ArgumentException("ID 0. Sistema.cs\\ObtenerPotreroPorId(int id)");
+
             Potrero potrero = null;
 
             try

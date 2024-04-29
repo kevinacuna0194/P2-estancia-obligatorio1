@@ -32,19 +32,29 @@ namespace ClassLibrary
         }
 
         /** Get; Set; **/
+        public bool EsHibrido
+        {
+            get { return _esHibrido; }
+        }
+
         public List<Vacunacion> Vacunaciones
         {
             get { return _vacunaciones; }
         }
 
-        public decimal CostoAdquisicion
+        public double PesoActual
         {
-            get { return _costoAdquisicion; }
+            get { return _pesoActual; }
         }
 
         public decimal CostoAlimentacion
         {
             get { return _costoAlimentacion; }
+        }
+
+        public decimal CostoAdquisicion
+        {
+            get { return _costoAdquisicion; }
         }
 
         public Potrero PotreroAsignado

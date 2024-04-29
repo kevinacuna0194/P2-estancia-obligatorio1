@@ -26,14 +26,20 @@ namespace ClassLibrary
             get { return _id; }
         }
 
-        public string CodigoCaravana
+        public decimal PrecioPorKiloOvinoEnPie
         {
-            get { return _codigoCaravana; }
+            get { return _precioPorKiloOvinoEnPie; }
         }
 
         public decimal PrecioPorKiloLana
         {
+            get { return _precioPorKiloLana; }
             set { _precioPorKiloLana = value; }
+        }
+
+        public double PesoLanaEstimado
+        {
+            get { return _pesoLanaEstimado; }
         }
 
         /** Métodos Globales **/

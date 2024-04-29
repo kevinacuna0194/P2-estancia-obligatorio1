@@ -84,6 +84,10 @@ namespace ConsoleApp
                         break;
                     case "5":
                         /** Costo de Crianza Animal **/
+                        Console.Clear();
+
+                        Sistema.Resaltar("▀▄▀▄▀▄ COSTO DE CRIANZA POR ANIMAL ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
                         string codigoCaravana1 = InputText("Ingrese Código de Caravana: ").Trim();
 
                         TipoAnimal tipoAnimal = InputTipoAnimal();
@@ -92,36 +96,61 @@ namespace ConsoleApp
                         {
                             Ovino ovino = sistema.ObtenerOvinoPorCodigoCaravana(codigoCaravana1);
 
-                            if (ovino is null)
+                            if (ovino is not null)
+                            {
+                                decimal costoCrianzaAnimal = sistema.CostoCrianzaAnimal(ovino);
+
+                                Sistema.Exito($"Costo de Crianza del {TipoAnimal.Ovino} con (Código de Caravana: {codigoCaravana1}) = ${costoCrianzaAnimal}. Presione una Tecla Para Continuar. \n");
+                                Console.ReadKey();
+                            }
+                            else
                             {
                                 Sistema.Error("No Existe un Ovino con Código de Caravana Ingresado. Presione una Tecla Para Continuar. \n");
                                 Console.ReadKey();
                             }
-
-                            decimal costoCrianzaAnimal = sistema.CostoCrianzaAnimal(ovino);
-
-                            Sistema.Exito($"Costo de Crianza del {TipoAnimal.Ovino} con Código de Caravana: {codigoCaravana1} = ${costoCrianzaAnimal}. Presione una Tecla Para Continuar. \n");
-                            Console.ReadKey();
                         }
                         else if (tipoAnimal == TipoAnimal.Bovino)
                         {
                             Bovino bovino1 = sistema.ObtenerBovinoPorCodigoCaravana(codigoCaravana1);
 
-                            if (bovino1 is null)
+                            if (bovino1 is not null)
+                            {
+                                decimal costoCrianzaAnimal = sistema.CostoCrianzaAnimal(bovino1);
+
+                                Sistema.Exito($"Costo de Crianza {TipoAnimal.Bovino} (Código de Caravana: {codigoCaravana1}) = {costoCrianzaAnimal}. Presione una Tecla Para Continuar. \n");
+                                Console.ReadKey();
+                            }
+                            else
                             {
                                 Sistema.Error("No Existe un Bovino con Código de Caravana Ingresado. Presione una Tecla Para Continuar. \n");
                                 Console.ReadKey();
                             }
-
-                            decimal costoCrianzaAnimal = sistema.CostoCrianzaAnimal(bovino1);
-
-                            Sistema.Exito($"Costo de Crianza {TipoAnimal.Bovino} Código de Caravana: {codigoCaravana1} = {costoCrianzaAnimal}. Presione una Tecla Para Continuar. \n");
-                            Console.ReadKey();
                         }
 
                         break;
                     case "6":
-                        ListarBovinos();
+                        /** Potencial precio de venta en ovinos **/
+                        Console.Clear();
+
+                        Sistema.Resaltar("▀▄▀▄▀▄ POTENCIAL PRECIO DE VENTA OVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                        string codigoCaravana2 = InputText("Ingrese Código de Caravana: ").Trim();
+
+                        Ovino ovino1 = sistema.ObtenerOvinoPorCodigoCaravana(codigoCaravana2);
+
+                        if (ovino1 is not null)
+                        {
+                            decimal precioVentaOvino = sistema.PrecioVentaOvino(ovino1);
+
+                            Sistema.Exito($"Potencial Precio de venta Ovino (Código de Caravana: {codigoCaravana2}) = ${precioVentaOvino}. Presione una Tecla Para Continuar. \n");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Sistema.Error("No Existe un Bovino con Código de Caravana Ingresado. Presione una Tecla Para Continuar. \n");
+                            Console.ReadKey();
+                        }
+
                         break;
                     case "7":
                         ListarBovinos();
