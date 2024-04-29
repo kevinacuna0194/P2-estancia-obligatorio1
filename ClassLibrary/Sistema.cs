@@ -65,6 +65,31 @@ namespace ClassLibrary
 
         #region Métodos paraCalcular
         /** Métodos paraCalcular **/
+        public decimal PrecioVentaBovino(Bovino bovino)
+        {
+            decimal costoTotal = 0;
+
+            try
+            {
+                if (bovino is null) throw new ArgumentNullException("Object Null. Sistema.cs\\PrecioVentaOvino(Ovino ovino)");
+
+                decimal precioVenta = ((decimal)bovino.PesoActual * bovino.PrecioPorKiloBovinoEnPie);
+
+                decimal recargoTipoAlimentacion = (bovino.TipoAlimentacion == TipoAlimentacion.Grano) ? precioVenta * 0.30m : 0;
+
+                decimal recargoHembra = (bovino.Sexo == Sexo.Hembra) ? precioVenta * 0.10m : 0;
+
+                costoTotal = precioVenta + recargoTipoAlimentacion + recargoHembra;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
+            }
+
+            return costoTotal;
+        }
+
         public decimal PrecioVentaOvino(Ovino ovino)
         {
             decimal costoTotal = 0;

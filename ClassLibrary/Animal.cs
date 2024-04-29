@@ -32,14 +32,19 @@ namespace ClassLibrary
         }
 
         /** Get; Set; **/
-        public bool EsHibrido
+        public Potrero PotreroAsignado
         {
-            get { return _esHibrido; }
+            set { _potreroAsignado = value; }
         }
 
         public List<Vacunacion> Vacunaciones
         {
             get { return _vacunaciones; }
+        }
+
+        public bool EsHibrido
+        {
+            get { return _esHibrido; }
         }
 
         public double PesoActual
@@ -57,9 +62,9 @@ namespace ClassLibrary
             get { return _costoAdquisicion; }
         }
 
-        public Potrero PotreroAsignado
+        public Sexo Sexo
         {
-            set { _potreroAsignado = value; }
+            get { return _sexo; }
         }
 
         public string CodigoCaravana

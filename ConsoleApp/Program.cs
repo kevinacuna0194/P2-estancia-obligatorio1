@@ -147,13 +147,34 @@ namespace ConsoleApp
                         }
                         else
                         {
-                            Sistema.Error("No Existe un Bovino con Código de Caravana Ingresado. Presione una Tecla Para Continuar. \n");
+                            Sistema.Error("No Existe un Ovino con Código de Caravana Ingresado. Presione una Tecla Para Continuar. \n");
                             Console.ReadKey();
                         }
 
                         break;
                     case "7":
-                        ListarBovinos();
+                        /** Potencial precio de venta en ovinos **/
+                        Console.Clear();
+
+                        Sistema.Resaltar("▀▄▀▄▀▄ POTENCIAL PRECIO DE VENTA BOVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                        string codigoCaravana3 = InputText("Ingrese Código de Caravana: ").Trim();
+
+                        Bovino bovino2 = sistema.ObtenerBovinoPorCodigoCaravana(codigoCaravana3);
+
+                        if (bovino2 is not null)
+                        {
+                            decimal precioVentaOvino = sistema.PrecioVentaBovino(bovino2);
+
+                            Sistema.Exito($"Potencial Precio de venta Bovino (Código de Caravana: {codigoCaravana3}) = ${precioVentaOvino}. Presione una Tecla Para Continuar. \n");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Sistema.Error("No Existe un Bovino con Código de Caravana Ingresado. Presione una Tecla Para Continuar. \n");
+                            Console.ReadKey();
+                        }
+
                         break;
                     case "8":
                         ListarBovinos();
@@ -203,6 +224,7 @@ namespace ConsoleApp
         /** Get; Set; **/
         #endregion Get; Set;
 
+        
         #region Métodos que Listan Información
         /** Métodos para Listar Información **/
         static void ListarVacunasPorAnimal()

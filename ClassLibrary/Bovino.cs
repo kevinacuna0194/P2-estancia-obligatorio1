@@ -23,10 +23,14 @@ namespace ClassLibrary
         {
             get { return _id; }
         }
-
-        public string CodigoCaravana
+        public decimal PrecioPorKiloBovinoEnPie
         {
-            get { return _codigoCaravana; }
+            get { return _precioPorKiloBovinoEnPie; }
+        }
+
+        public TipoAlimentacion TipoAlimentacion
+        {
+            get { return _tipoAlimentacion; }
         }
 
         /** Métodos Globales **/
