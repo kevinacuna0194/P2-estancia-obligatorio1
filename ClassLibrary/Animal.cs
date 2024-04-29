@@ -32,6 +32,21 @@ namespace ClassLibrary
         }
 
         /** Get; Set; **/
+        public List<Vacunacion> Vacunaciones
+        {
+            get { return _vacunaciones; }
+        }
+
+        public decimal CostoAdquisicion
+        {
+            get { return _costoAdquisicion; }
+        }
+
+        public decimal CostoAlimentacion
+        {
+            get { return _costoAlimentacion; }
+        }
+
         public Potrero PotreroAsignado
         {
             set { _potreroAsignado = value; }

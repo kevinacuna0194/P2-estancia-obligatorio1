@@ -63,6 +63,31 @@ namespace ClassLibrary
         public object Program { get; private set; }
         #endregion Get; Set;
 
+        #region Métodos paraCalcular
+        /** Métodos paraCalcular **/
+        public decimal CostoCrianzaAnimal(Animal animal)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            decimal costoCrianzaAnimal = animal.CostoAdquisicion + animal.CostoAlimentacion;
+
+            int cantidadVacunas = animal.Vacunaciones.Count;
+
+            decimal costoVacunas = cantidadVacunas * 200;
+
+            decimal costoTotal = costoCrianzaAnimal + costoVacunas;
+
+            return costoTotal;
+        }
+
+        #endregion Métodos paraCalcular
+
         #region Métodos para Buscar Información
         /** Métodos para Buscar Información **/
         public void ListarPotrerosHectareasCapacidadMaxima(double hectareas, int numero)
