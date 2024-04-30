@@ -65,6 +65,47 @@ namespace ClassLibrary
 
         #region Métodos paraCalcular
         /** Métodos paraCalcular **/
+        public decimal GanaciaVentaPotrero(Potrero potrero)
+        {
+            decimal costoTotal = 0;
+            decimal precioVentaAnimal = 0;
+            decimal costoCrianza = 0;
+
+            try
+            {
+                if (potrero is null) throw new ArgumentNullException("Object Null. GanaciaVentaPotrero(Potrero potrero)");
+
+                foreach(Animal animal in potrero.Animales)
+                {
+                    if (animal is Ovino)
+                    {
+                        Ovino ovino = (Ovino)animal;
+
+                        precioVentaAnimal += PrecioVentaOvino(ovino);
+
+                        costoCrianza += CostoCrianzaAnimal(ovino);
+                    }
+                    else if (animal is Bovino)
+                    {
+                        Bovino bovino = (Bovino)animal;
+
+                        precioVentaAnimal += PrecioVentaBovino(bovino);
+
+                        costoCrianza += CostoCrianzaAnimal(bovino);
+                    }
+                }
+
+                costoTotal = precioVentaAnimal - costoCrianza;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Error($"{ex.Message} \n");
+            }
+
+            return costoTotal;
+        }
+
         public decimal PrecioVentaBovino(Bovino bovino)
         {
             decimal costoTotal = 0;
@@ -177,8 +218,6 @@ namespace ClassLibrary
 
         public Potrero ObtenerPotreroPorId(int id)
         {
-            if (id <= 0) throw new ArgumentException("ID 0. Sistema.cs\\ObtenerPotreroPorId(int id)");
-
             Potrero potrero = null;
 
             try
@@ -195,8 +234,6 @@ namespace ClassLibrary
 
                     index++;
                 }
-
-                if (potrero is null) throw new ArgumentException("No Exite Potrero con ID Ingresada");
             }
             catch (Exception ex)
             {

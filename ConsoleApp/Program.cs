@@ -177,33 +177,59 @@ namespace ConsoleApp
 
                         break;
                     case "8":
-                        ListarBovinos();
+                        /** Ganancias estimadas de la venta de un potrero **/
+                        Console.Clear();
+
+                        Sistema.Resaltar("\n ▀▄▀▄▀▄ GANANCIAS ESTIMADAS DE VENTA POR POTRERO ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
+
+                        CantidadAnimalesPorPotrero();
+
+                        int id = InputNumber("Ingrese ID del Potrero:");
+
+                        Potrero potrero = sistema.ObtenerPotreroPorId(id);
+
+                        if (potrero is not null)
+                        {
+                            decimal ganaciaVentaPotrero = sistema.GanaciaVentaPotrero(potrero);
+
+                            Sistema.Exito($"Ganancias Estimadas del Potrero con ID {potrero.Id}: ${ganaciaVentaPotrero}. Presione una Tecla Para Continuar. \n");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Sistema.Error("No Existe un Potrero con ID Ingresado. Presione una Tecla Para Continuar. \n");
+                            Console.ReadKey();
+                        }
+
                         break;
                     case "9":
-                        ListarOvinos();
+                        ListarBovinos();
                         break;
                     case "10":
-                        ListarPotreros();
+                        ListarOvinos();
                         break;
                     case "11":
-                        ListarAnimalesPorPotrero();
+                        ListarPotreros();
                         break;
                     case "12":
-                        ListarVacunas();
+                        ListarAnimalesPorPotrero();
                         break;
                     case "13":
-                        ListarPeones();
+                        ListarVacunas();
                         break;
                     case "14":
-                        ListarCapataces();
+                        ListarPeones();
                         break;
                     case "15":
-                        ListarTareas();
+                        ListarCapataces();
                         break;
                     case "16":
-                        ListarTareasPorPeon();
+                        ListarTareas();
                         break;
                     case "17":
+                        ListarTareasPorPeon();
+                        break;
+                    case "18":
                         ListarVacunasPorAnimal();
                         break;
                     case "0":
@@ -227,6 +253,24 @@ namespace ConsoleApp
         
         #region Métodos que Listan Información
         /** Métodos para Listar Información **/
+        static void CantidadAnimalesPorPotrero()
+        {
+            try
+            {
+                foreach (Potrero potrero in sistema.Potreros)
+                {
+                    Sistema.Resaltar($"▀▄▀▄▀▄ POTRERO ID: {potrero.Id} ▄▀▄▀▄▀ \n", ConsoleColor.DarkBlue);
+
+                    Sistema.Resaltar($"Total de Animales: {potrero.Animales.Count}. Capacidad Máxima: {potrero.CapacidadMaxima} \n", ConsoleColor.DarkGray);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine();
+                Sistema.Error($"{ex.Message} \n");
+            }
+        }
+
         static void ListarVacunasPorAnimal()
         {
             try
@@ -874,24 +918,25 @@ namespace ConsoleApp
 
         static void Menu()
         {
-            Console.WriteLine("╰┈➤ 1 ▶ Listado de Todos los Animales \n".ToUpper());
-            Console.WriteLine("╰┈➤ 2 ▶ Listado de Potreros con Área Mayor a Cantidad de Hectáreas Proporcionada y Capacidad Máxima Superior al Número Dado. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 3 ▶ Establecer el Precio por Kilogramo de Lana de los Ovinos \n".ToUpper());
-            Console.WriteLine("╰┈➤ 4 ▶ Alta de Ganado Bovino. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 5 ▶ Costo de Crianza por Animal. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 6 ▶ Potencial Precio de Venta Ovinos. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 7 ▶ Potencial Precio de Venta Bovinos. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 8 ▶ Listar Ganado Bovino. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 9 ▶ Listar Ganado Ovino. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 10 ▶ Listar Potreros. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 11 ▶ Listar Animales por Potrero. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 12 ▶ Listar Vacunas \n".ToUpper());
-            Console.WriteLine("╰┈➤ 13 ▶ Listar Peones. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 14 ▶ Listar Capataces. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 15 ▶ Listar Tareas. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 16 ▶ Listar Tareas Por Peón. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 17 ▶ Listar Vacunas por Animal. \n".ToUpper());
-            Console.WriteLine("╰┈➤ 0 ▶ Salir \n".ToUpper());
+            Console.WriteLine("➡︎ 1 ➔ Listado de Todos los Animales \n".ToUpper());
+            Console.WriteLine("➡︎ 2 ➔ Listado de Potreros con Área Mayor a Cantidad de Hectáreas Proporcionada y Capacidad Máxima Superior al Número Dado. \n".ToUpper());
+            Console.WriteLine("➡︎ 3 ➔ Establecer el Precio por Kilogramo de Lana de los Ovinos \n".ToUpper());
+            Console.WriteLine("➡︎ 4 ➔ Alta de Ganado Bovino. \n".ToUpper());
+            Console.WriteLine("➡︎ 5 ➔ Costo de Crianza por Animal. \n".ToUpper());
+            Console.WriteLine("➡︎ 6 ➔ Potencial Precio de Venta Ovinos. \n".ToUpper());
+            Console.WriteLine("➡︎ 7 ➔ Potencial Precio de Venta Bovinos. \n".ToUpper());
+            Console.WriteLine("➡︎ 8 ➔ Ganancias Estimadas de Venta por Potrero. \n".ToUpper());
+            Console.WriteLine("➡︎ 9 ➔ Listar Ganado Bovino. \n".ToUpper());
+            Console.WriteLine("➡︎ 10 ➔ Listar Ganado Ovino. \n".ToUpper());
+            Console.WriteLine("➡︎ 11 ➔ Listar Potreros. \n".ToUpper());
+            Console.WriteLine("➡︎ 12 ➔ Listar Animales por Potrero. \n".ToUpper());
+            Console.WriteLine("➡︎ 13 ➔ Listar Vacunas \n".ToUpper());
+            Console.WriteLine("➡︎ 14 ➔ Listar Peones. \n".ToUpper());
+            Console.WriteLine("➡︎ 15 ➔ Listar Capataces. \n".ToUpper());
+            Console.WriteLine("➡︎ 16 ➔ Listar Tareas. \n".ToUpper());
+            Console.WriteLine("➡︎ 17 ➔ Listar Tareas Por Peón. \n".ToUpper());
+            Console.WriteLine("➡︎ 18 ➔ Listar Vacunas por Animal. \n".ToUpper());
+            Console.WriteLine("➡︎ 0 ➔ Salir \n".ToUpper());
         }
 
         static void Bienvenida()
