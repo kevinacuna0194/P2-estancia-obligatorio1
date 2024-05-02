@@ -18,7 +18,7 @@ namespace ClassLibrary
         public Vacuna TipoVacuna
         {
             get { return _tipoVacuna; }
-            set { _tipoVacuna = value;}
+            set { _tipoVacuna = value; }
         }
 
         public DateTime Fecha

@@ -59,8 +59,6 @@ namespace ClassLibrary
         {
             get { return _potreros; }
         }
-
-        public object Program { get; private set; }
         #endregion Get; Set;
 
         #region Métodos paraCalcular
@@ -433,11 +431,6 @@ namespace ClassLibrary
             }
         }
 
-        private Exception InvalidOperationException()
-        {
-            throw new NotImplementedException();
-        }
-
         public void AsignarAnimalAlPotrero()
         {
             try
@@ -789,16 +782,16 @@ namespace ClassLibrary
             AltaAnimal(new Ovino("Caravana18", Sexo.Hembra, "Raza18", new DateTime(2011, 05, 30), 2200, 340, 51.8, true, 10.7, 28, 34));
             AltaAnimal(new Ovino("Caravana19", Sexo.Macho, "Raza19", new DateTime(2010, 03, 25), 2300, 360, 49.1, false, 9.2, 24, 29));
             AltaAnimal(new Ovino("Caravana20", Sexo.Hembra, "Raza20", new DateTime(2009, 01, 15), 2400, 380, 55.7, true, 11.3, 30, 35));
-            AltaAnimal(new Ovino("Caravana21", Sexo.Macho, "Raza1", new DateTime(2010, 1, 1), 1500, 200, 30.5, false, 5.2, 15, 40));
-            AltaAnimal(new Ovino("Caravana22", Sexo.Hembra, "Raza2", new DateTime(2011, 1, 1), 1600, 220, 35.2, true, 6.8, 18, 45));
-            AltaAnimal(new Ovino("Caravana23", Sexo.Macho, "Raza3", new DateTime(2012, 1, 1), 1700, 240, 32.7, false, 5.9, 16, 50));
-            AltaAnimal(new Ovino("Caravana24", Sexo.Hembra, "Raza4", new DateTime(2013, 1, 1), 1800, 260, 38.1, true, 7.5, 20, 55));
-            AltaAnimal(new Ovino("Caravana25", Sexo.Macho, "Raza5", new DateTime(2014, 1, 1), 1900, 280, 36.8, false, 6.3, 17, 60));
-            AltaAnimal(new Ovino("Caravana26", Sexo.Hembra, "Raza6", new DateTime(2015, 1, 1), 2000, 300, 42.4, true, 8.1, 22, 65));
-            AltaAnimal(new Ovino("Caravana27", Sexo.Macho, "Raza7", new DateTime(2016, 1, 1), 2100, 320, 39.6, false, 7.2, 19, 70));
-            AltaAnimal(new Ovino("Caravana28", Sexo.Hembra, "Raza8", new DateTime(2017, 1, 1), 2200, 340, 45.3, true, 9.3, 25, 75));
-            AltaAnimal(new Ovino("Caravana29", Sexo.Macho, "Raza9", new DateTime(2018, 1, 1), 2300, 360, 43.9, false, 8.5, 23, 80));
-            AltaAnimal(new Ovino("Caravana30", Sexo.Hembra, "Raza10", new DateTime(2019, 1, 1), 2400, 380, 49.7, true, 10.2, 27, 85));
+            AltaAnimal(new Ovino("Caravana21", Sexo.Macho, "Raza21", new DateTime(2010, 1, 1), 1500, 200, 30.5, false, 5.2, 15, 40));
+            AltaAnimal(new Ovino("Caravana22", Sexo.Hembra, "Raza22", new DateTime(2011, 1, 1), 1600, 220, 35.2, true, 6.8, 18, 45));
+            AltaAnimal(new Ovino("Caravana23", Sexo.Macho, "Raza23", new DateTime(2012, 1, 1), 1700, 240, 32.7, false, 5.9, 16, 50));
+            AltaAnimal(new Ovino("Caravana24", Sexo.Hembra, "Raza24", new DateTime(2013, 1, 1), 1800, 260, 38.1, true, 7.5, 20, 55));
+            AltaAnimal(new Ovino("Caravana25", Sexo.Macho, "Raza25", new DateTime(2014, 1, 1), 1900, 280, 36.8, false, 6.3, 17, 60));
+            AltaAnimal(new Ovino("Caravana26", Sexo.Hembra, "Raza26", new DateTime(2015, 1, 1), 2000, 300, 42.4, true, 8.1, 22, 65));
+            AltaAnimal(new Ovino("Caravana27", Sexo.Macho, "Raza27", new DateTime(2016, 1, 1), 2100, 320, 39.6, false, 7.2, 19, 70));
+            AltaAnimal(new Ovino("Caravana28", Sexo.Hembra, "Raza28", new DateTime(2017, 1, 1), 2200, 340, 45.3, true, 9.3, 25, 75));
+            AltaAnimal(new Ovino("Caravana29", Sexo.Macho, "Raza29", new DateTime(2018, 1, 1), 2300, 360, 43.9, false, 8.5, 23, 80));
+            AltaAnimal(new Ovino("Caravana30", Sexo.Hembra, "Raza30", new DateTime(2019, 1, 1), 2400, 380, 49.7, true, 10.2, 27, 85));
 
             /** Bovinos **/
             AltaAnimal(new Bovino("Caravana1", Sexo.Macho, "Angus", new DateTime(2019, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 25));
@@ -821,16 +814,16 @@ namespace ClassLibrary
             AltaAnimal(new Bovino("Caravana18", Sexo.Hembra, "Simmental", new DateTime(2011, 05, 30), 2200, 340, 440, true, TipoAlimentacion.Pastura, 110));
             AltaAnimal(new Bovino("Caravana19", Sexo.Macho, "Angus", new DateTime(2010, 03, 25), 2300, 360, 460, false, TipoAlimentacion.Grano, 115));
             AltaAnimal(new Bovino("Caravana20", Sexo.Hembra, "Hereford", new DateTime(2009, 01, 15), 2400, 380, 480, true, TipoAlimentacion.Pastura, 120));
-            AltaAnimal(new Bovino("Caravana21", Sexo.Macho, "Angus", new DateTime(2023, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 125));
-            AltaAnimal(new Bovino("Caravana22", Sexo.Hembra, "Hereford", new DateTime(2020, 03, 22), 1600, 220, 320, true, TipoAlimentacion.Pastura, 130));
-            AltaAnimal(new Bovino("Caravana23", Sexo.Macho, "Simmental", new DateTime(2021, 05, 10), 1700, 240, 340, false, TipoAlimentacion.Grano, 135));
-            AltaAnimal(new Bovino("Caravana24", Sexo.Hembra, "Angus", new DateTime(2022, 07, 03), 1800, 260, 360, true, TipoAlimentacion.Pastura, 140));
-            AltaAnimal(new Bovino("Caravana25", Sexo.Macho, "Hereford", new DateTime(2023, 09, 18), 1900, 280, 380, false, TipoAlimentacion.Grano, 145));
-            AltaAnimal(new Bovino("Caravana26", Sexo.Hembra, "Simmental", new DateTime(2024, 11, 25), 2000, 300, 400, true, TipoAlimentacion.Pastura, 150));
-            AltaAnimal(new Bovino("Caravana27", Sexo.Macho, "Angus", new DateTime(2025, 12, 10), 2100, 320, 420, false, TipoAlimentacion.Grano, 155));
-            AltaAnimal(new Bovino("Caravana28", Sexo.Hembra, "Hereford", new DateTime(2026, 10, 06), 2200, 340, 440, true, TipoAlimentacion.Pastura, 160));
-            AltaAnimal(new Bovino("Caravana29", Sexo.Macho, "Simmental", new DateTime(2027, 08, 30), 2300, 360, 460, false, TipoAlimentacion.Grano, 165));
-            AltaAnimal(new Bovino("Caravana30", Sexo.Hembra, "Angus", new DateTime(2028, 07, 20), 2400, 380, 480, true, TipoAlimentacion.Pastura, 170));
+            AltaAnimal(new Bovino("Caravana21", Sexo.Macho, "Simmental", new DateTime(2023, 01, 15), 1500, 200, 300, false, TipoAlimentacion.Grano, 125));
+            AltaAnimal(new Bovino("Caravana22", Sexo.Hembra, "Angus", new DateTime(2020, 03, 22), 1600, 220, 320, true, TipoAlimentacion.Pastura, 130));
+            AltaAnimal(new Bovino("Caravana23", Sexo.Macho, "Hereford", new DateTime(2021, 05, 10), 1700, 240, 340, false, TipoAlimentacion.Grano, 135));
+            AltaAnimal(new Bovino("Caravana24", Sexo.Hembra, "Simmental", new DateTime(2022, 07, 03), 1800, 260, 360, true, TipoAlimentacion.Pastura, 140));
+            AltaAnimal(new Bovino("Caravana25", Sexo.Macho, "Angus", new DateTime(2023, 09, 18), 1900, 280, 380, false, TipoAlimentacion.Grano, 145));
+            AltaAnimal(new Bovino("Caravana26", Sexo.Hembra, "Hereford", new DateTime(2024, 11, 25), 2000, 300, 400, true, TipoAlimentacion.Pastura, 150));
+            AltaAnimal(new Bovino("Caravana27", Sexo.Macho, "Simmental", new DateTime(2025, 12, 10), 2100, 320, 420, false, TipoAlimentacion.Grano, 155));
+            AltaAnimal(new Bovino("Caravana28", Sexo.Hembra, "Angus", new DateTime(2026, 10, 06), 2200, 340, 440, true, TipoAlimentacion.Pastura, 160));
+            AltaAnimal(new Bovino("Caravana29", Sexo.Macho, "Hereford", new DateTime(2027, 08, 30), 2300, 360, 460, false, TipoAlimentacion.Grano, 165));
+            AltaAnimal(new Bovino("Caravana30", Sexo.Hembra, "Simmental", new DateTime(2028, 07, 20), 2400, 380, 480, true, TipoAlimentacion.Pastura, 170));
         }
 
         public void AltaTarea(Tarea tarea)

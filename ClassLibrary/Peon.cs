@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace ClassLibrary
+﻿namespace ClassLibrary
 {
     // Clase para el Peon, derivada de Animal
     public class Peon : Empleado
@@ -33,7 +31,16 @@ namespace ClassLibrary
         // Método para asignar tarea al peón
         public void AsignarTarea(Tarea tarea)
         {
-            _tareasAsignadas.Add(tarea);
+            try
+            {
+                if (tarea is null) throw new ArgumentException("Object Null. Peon.cs\\AsignarTarea(Tarea tarea)");
+                tarea.Validar();
+                _tareasAsignadas.Add(tarea);
+            }
+            catch (Exception ex)
+            {
+                Sistema.Error(ex.Message);
+            }
         }
 
         /** Métodos Globales **/

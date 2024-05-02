@@ -1,6 +1,5 @@
 ﻿using ClassLibrary;
 using ClassLibrary.Enum;
-using System.Threading;
 
 namespace ConsoleApp
 {
@@ -129,7 +128,7 @@ namespace ConsoleApp
 
                         break;
                     case "6":
-                        /** Potencial precio de venta en ovinos **/
+                        /** Potencial precio de venta en Ovinos **/
                         Console.Clear();
 
                         Sistema.Resaltar("▀▄▀▄▀▄ POTENCIAL PRECIO DE VENTA OVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -153,7 +152,7 @@ namespace ConsoleApp
 
                         break;
                     case "7":
-                        /** Potencial precio de venta en ovinos **/
+                        /** Potencial precio de venta en Bovinos **/
                         Console.Clear();
 
                         Sistema.Resaltar("▀▄▀▄▀▄ POTENCIAL PRECIO DE VENTA BOVINOS ▄▀▄▀▄▀ \n", ConsoleColor.DarkYellow);
@@ -233,7 +232,7 @@ namespace ConsoleApp
                         ListarTareasPorPeon();
                         break;
                     case "0":
-                        Sistema.Exito("Cerrando Aplicación de Consola".ToUpper());
+                        Sistema.Exito("Cerrando Aplicación de Consola...".ToUpper());
                         codigo = false;
                         break;
                     default:
@@ -241,8 +240,6 @@ namespace ConsoleApp
                         Console.ReadKey();
                         break;
                 }
-
-                Console.Clear();
             }
         }
 
@@ -923,8 +920,8 @@ namespace ConsoleApp
             Sistema.Resaltar("➡︎ 3 ➔ Establecer el Precio por Kilogramo de Lana de los Ovinos \n".ToUpper(), ConsoleColor.DarkCyan);
             Sistema.Resaltar("➡︎ 4 ➔ Alta de Ganado Bovino \n".ToUpper(), ConsoleColor.DarkCyan);
             Sistema.Resaltar("➡︎ 5 ➔ Costo de Crianza por Animal \n".ToUpper(), ConsoleColor.DarkCyan);
-            Sistema.Resaltar("➡︎ 6 ➔ Potencial Precio de Venta Ovinos \n".ToUpper(), ConsoleColor.DarkCyan);
-            Sistema.Resaltar("➡︎ 7 ➔ Potencial Precio de Venta Bovinos \n".ToUpper(), ConsoleColor.DarkCyan);
+            Sistema.Resaltar("➡︎ 6 ➔ Potencial Precio de Venta Ovino \n".ToUpper(), ConsoleColor.DarkCyan);
+            Sistema.Resaltar("➡︎ 7 ➔ Potencial Precio de Venta Bovino \n".ToUpper(), ConsoleColor.DarkCyan);
             Sistema.Resaltar("➡︎ 8 ➔ Ganancias Estimadas de Venta por Potrero \n".ToUpper(), ConsoleColor.DarkCyan);
             Console.WriteLine("➡︎ 9 ➔ Listar Ganado Bovino \n".ToUpper());
             Console.WriteLine("➡︎ 10 ➔ Listar Ganado Ovino \n".ToUpper());
